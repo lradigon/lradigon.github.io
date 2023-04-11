@@ -1,136 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nogidar.com</title>
-    <style type="text/css">
-        body {
-            margin: 0;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            /*background-image: url("./download.jpg");*/
-            background-color: cornflowerblue;
-
-            width: 100vh;
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Safari */
-            -khtml-user-select: none; /* Konqueror HTML */
-            -moz-user-select: none; /* Old versions of Firefox */
-                -ms-user-select: none; /* Internet Explorer/Edge */
-                    user-select: none; /* Non-prefixed version, currently
-                                        supported by Chrome, Edge, Opera and Firefox */
-        }
-
-        .titre {
-            color: white;
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            text-shadow: 0em 1px 11px #00efff;
-            font-size: 80px;
-        }
-
-        .subTitle {
-            color: white;
-            text-align: center;
-            text-shadow: 0em 1px 11px #00efff;
-            font-size: 15px;
-        }
-    </style>
+    <title>LeagueOfWinn - Augmentez vos chances de gagner</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1 id="titre" class="titre">Bienvenue sur Nogidar.com</h1>
-    <label class="titre" style="top: 250px">Ton argent: <label id="money">0</label>€</label>
+    <header>
+        <h1>LeagueOfWinn</h1>
+    </header>
 
-    <div  class="subTitle" style="position: absolute;top: 50vh;left: 9vh;">
-        <p>Enregistrez votre flow et le poster sur Spotify. <br />10€</p>
-        <p><img id="rap" src="./rap.jpg" style="width: 25vh" />
-            Nombre de son(s): <label id="son">0</label>
-        </p>
-        <p>
-            <button id="sonMax">
-                MAX
-            </button>
-        </p>
-    </div>
+    <main>
+        <section class="personnages">
+            <h2>Entrez les personnages de votre partie :</h2>
+            <div class="grid">
+                <div class="grid-item"><input type="text" placeholder="Personnage 1"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 2"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 3"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 4"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 5"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 6"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 7"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 8"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 9"></div>
+                <div class="grid-item"><input type="text" placeholder="Personnage 10"></div>
+            </div>
+        </section>
 
+        <section class="resultat">
+            <h2>Le personnage qui vous fera gagner :</h2>
+            <div class="resultat-container">
+                <div class="personnage-gagnant">
+                    <span>CE PERSONNAGE TE FERA GAGNER À X%</span>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <button id="reset">BANQUEROUTE</button>
+    <footer>
+        <p>&copy; 2023 LeagueOfWinn. Tous droits réservés.</p>
+    </footer>
+    <script src="scripts.js"></script>
 </body>
-
-<script>
-    var audio = new Audio('son.mp3');
-    var money = localStorage.getItem("money") == null ? 0 : localStorage.getItem("money");
-    var son = localStorage.getItem("son") == null ? 0 : localStorage.getItem("son");
-
-    document.getElementById("money").innerHTML = toDisplay(money);
-    document.getElementById("son").innerHTML = toDisplay(son);
-
-
-
-
-
-
-    function toDisplay(value) {
-        if (value > 100000) {
-            return Math.floor((value / 1000)) + "K";
-        }
-        return (value);
-    }
-
-    function incValue(id, value, quantity) {
-        if ((value + quantity) >= 0) {
-            value += quantity;
-            document.getElementById(id).innerHTML = toDisplay(value);
-            localStorage.setItem(id, value);
-        }
-        return parseInt(value);
-    }
-
-
-
-    // AUTOCLICK
-    document.onclick = function() {
-        money = incValue("money", money, 1);
-    }
-
-
-    // SON
-    document.getElementById("rap").onclick = function() {
-        money = incValue("money", money, -10);
-        son = incValue("son", son, 1);
-        audio.play();
-    };
-
-    document.getElementById("sonMax").onclick = function() {
-        maxSon = Math.floor(money / 10);
-        console.log(maxSon);
-        money = incValue("money", money, -(maxSon * 10));
-        son = incValue("son", son, maxSon);
-        audio.play();
-    }
-
-
-
-
-
-    // TIMER
-    setInterval(myTimer, 4000);
-    function myTimer() {
-        money = incValue("money", money, parseInt(son));
-    }
-
-
-    // RESET
-    document.getElementById("reset").onclick = function() {
-        document.getElementById("money").innerHTML = -1 ;
-        localStorage.setItem("money", -1);
-        money = -1;
-
-        document.getElementById("son").innerHTML = 0;
-        localStorage.setItem("son", 0);
-        son = 0;
-    }
-</script>
 </html>
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1a1a1a;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+main {
+    padding: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+}
+
+.grid-item {
+    background-color: #cccccc;
+    padding: 20px;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 5px;
+}
+
+.resultat
