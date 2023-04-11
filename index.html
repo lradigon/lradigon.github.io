@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeagueOfWinn - Augmentez vos chances de gagner</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -12,38 +8,139 @@
     </header>
 
     <main>
+        <h2>Rôle :</h2>
+        <select name="role" id="role">
+            <option value="Top">Top</option>
+            <option value="Jungle">Jungle</option>
+            <option value="Mid">Mid</option>
+            <option value="ADC">Adc</option>
+            <option value="Support">Supp</option>
+        </select>
+        <br /><br /><br /><br />
         <section class="personnages">
-            <h2>Entrez les personnages de votre partie :</h2>
-            <input type="text" id="name" name="name">
             <div class="grid">
-                <div class="grid-item"><input type="text" placeholder="Personnage 1"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 2"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 3"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 4"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 5"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 6"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 7"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 8"></div>
-                <div class="grid-item"><input type="text" placeholder="Personnage 9"></div>
+                <div class="grid-item"><input type="text" class="ennemie" id="e1" value="Sion"    placeholder="Ennemie 1"></div>
+                <div class="grid-item"><input type="text" class="ennemie" id="e2" value="Hecarim" placeholder="Ennemie 2"></div>
+                <div class="grid-item"><input type="text" class="ennemie" id="e3" value="Veigar"  placeholder="Ennemie 3"></div>
+                <div class="grid-item"><input type="text" class="ennemie" id="e4" value="Samira"  placeholder="Ennemie 4"></div>
+                <div class="grid-item"><input type="text" class="ennemie" id="e5" value="Yuumi"   placeholder="Ennemie 5"></div>
+                <div class="grid-item"><input type="text" class="allie"   id="a1" value="Garen"   placeholder="Allié 1"></div>
+                <div class="grid-item"><input type="text" class="allie"   id="a2" value="Shaco"   placeholder="Allié 2"></div>
+                <div class="grid-item"><input type="text" class="allie"   id="a3" value="Viktor"  placeholder="Allié 3"></div>
+                <div class="grid-item"><input type="text" class="allie"   id="a4" value="Soraka"  placeholder="Allié 4"></div>
             </div>
         </section>
 
+        <br /><br />
+        <button id="myButton">Click me!</button>
+        <br /><br />
+
         <section class="resultat">
-            <h2>Le personnage qui vous fera gagner :</h2>
+            <h2>Les personnages qui vous fera gagner :</h2>
             <div class="resultat-container">
-                <div class="personnage-gagnant">
-                    <span>CE PERSONNAGE TE FERA GAGNER À X%</span>
-                </div>
+                <ul class="res">
+
+                </ul>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2023 LeagueOfWinn. Tous droits réservés.</p>
-    </footer>
-    <script src="scripts.js"></script>
 </body>
 </html>
+
+<script src="./avec.js"></script>
+<script src="./contre.js"></script>
+<script src="./champ.js"></script>
+<script> 
+    const button = document.querySelector('#myButton');
+    button.addEventListener('click', myFunction);
+
+    function myFunction() {
+        let classAllies   = document.querySelectorAll('.allie')
+        let classEnnemies = document.querySelectorAll('.ennemie')
+    
+        let allies   = []
+        let ennemies = []
+
+        for (let i = 0; i < classAllies.length; i++)
+            allies.push(classAllies[i].value)
+        for (let i = 0; i < classEnnemies.length; i++)
+            ennemies.push(classEnnemies[i].value)
+
+
+
+
+        let role = document.querySelector('#role').value
+        
+        let champInRole = []
+
+        for (let i = 0; i < champ.length; i++)
+            if (champ[i].role == role)
+                champInRole.push(champ[i].name)
+
+
+        let stats = []
+        for (let i = 0; i < champInRole.length; i++)
+            stats.push([])
+
+        for (let i = 0; i < champInRole.length; i++) {
+            let currChamp = {}
+            for (const [key, value] of Object.entries(avec)) {
+                if (value.Avec == champInRole[i])
+                    currChamp = value
+            }
+
+            for (const [key, value] of Object.entries(currChamp)) {
+                for (let j = 0; j < allies.length; j++) {
+                    if (key == allies[j]) {
+                        if (typeof(value) == "number")
+                            stats[i].push(value)
+                        if (typeof(value) == "string")
+                            stats[i].push(parseFloat(value.replace(",",".")))
+                    }
+                }
+            }
+
+            currChamp = {}
+            for (const [key, value] of Object.entries(contre)) {
+                if (value.Contre == champInRole[i])
+                    currChamp = value
+            }
+
+            for (const [key, value] of Object.entries(currChamp)) {
+                for (let j = 0; j < ennemies.length; j++) {
+                    if (key == ennemies[j]) {
+                        if (typeof(value) == "number")
+                            stats[i].push(value)
+                        if (typeof(value) == "string")
+                            stats[i].push(parseFloat(value.replace(",",".")))
+                    }
+                }
+            }
+        }
+
+
+        let finale = []
+        for (let i = 0; i < champInRole.length; i++) {
+            const sum = stats[i].reduce((acc, val) => acc + val, 0);
+            const avg = sum / stats[i].length;
+            finale.push({name: champInRole[i], average: avg})
+        }
+        finale.sort(function(a, b) {return b.average - a.average})
+
+
+        document.querySelector('.res').innerHTML = ""
+
+        for (let i = 0; i < finale.length; i++) {
+            if (!isNaN(finale[i].average)) {
+                let li = document.createElement('li')
+                li.textContent = `${finale[i].name}: ${finale[i].average.toFixed(2)}`
+
+                document.querySelector('.res').append(li)
+            }
+        }
+    }
+</script>
 
 <style>
 body {
@@ -83,7 +180,4 @@ input[type="text"] {
     width: 100%;
     padding: 5px;
 }
-
-.resultat
-    
 </style>
