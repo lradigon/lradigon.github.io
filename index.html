@@ -36,7 +36,7 @@
         <br /><br />
 
         <section class="resultat">
-            <h2>Les personnages qui vous fera gagner :</h2>
+            <h2>Les personnages qui vous feront gagner :</h2>
             <div class="resultat-container">
                 <ul class="res">
 
@@ -134,7 +134,7 @@
         for (let i = 0; i < finale.length; i++) {
             if (!isNaN(finale[i].average)) {
                 let li = document.createElement('li')
-                li.textContent = `${finale[i].name}: ${finale[i].average.toFixed(2)}`
+                li.textContent = `${finale[i].name}: ${finale[i].average.toFixed(2)}%`
 
                 document.querySelector('.res').append(li)
             }
