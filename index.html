@@ -9,30 +9,50 @@
 
     <main>
         <h2>Rôle :</h2>
-        <select name="role" id="role">
+        <select id="role">
             <option value="Top">Top</option>
             <option value="Jungle">Jungle</option>
             <option value="Mid">Mid</option>
-            <option value="ADC">Adc</option>
+            <option selected value="ADC">Adc</option>
             <option value="Support">Supp</option>
         </select>
+
+        <h3>Champions favoris:</h3>
+        <select id="fav1"></select>
+        <select id="fav2"></select>
+        <select id="fav3"></select>
+
         <br /><br /><br /><br />
-        <section class="personnages">
-            <div class="grid">
-                <div class="grid-item"><input type="text" class="ennemie" id="e1" value="Sion"    placeholder="Ennemie 1"></div>
-                <div class="grid-item"><input type="text" class="ennemie" id="e2" value="Hecarim" placeholder="Ennemie 2"></div>
-                <div class="grid-item"><input type="text" class="ennemie" id="e3" value="Veigar"  placeholder="Ennemie 3"></div>
-                <div class="grid-item"><input type="text" class="ennemie" id="e4" value="Samira"  placeholder="Ennemie 4"></div>
-                <div class="grid-item"><input type="text" class="ennemie" id="e5" value="Yuumi"   placeholder="Ennemie 5"></div>
-                <div class="grid-item"><input type="text" class="allie"   id="a1" value="Garen"   placeholder="Allié 1"></div>
-                <div class="grid-item"><input type="text" class="allie"   id="a2" value="Shaco"   placeholder="Allié 2"></div>
-                <div class="grid-item"><input type="text" class="allie"   id="a3" value="Viktor"  placeholder="Allié 3"></div>
-                <div class="grid-item"><input type="text" class="allie"   id="a4" value="Soraka"  placeholder="Allié 4"></div>
-            </div>
-        </section>
+        <table>
+            <tr>
+                <th>Alliés</th>
+                <th>Ennemies</th>
+            </tr>
+            <tr>
+                <td><div class="grid-item"><select class="allie" id="a1"></select></div></td>
+                <td><div class="grid-item"><select class="ennemie" id="e1"></select></div></td>
+            </tr>
+            <tr>
+                <td><div class="grid-item"><select class="allie" id="a2"></select></div></td>
+                <td><div class="grid-item"><select class="ennemie" id="e2"></select></div></td>
+            </tr>
+            <tr>
+                <td><div class="grid-item"><select class="allie" id="a3"></select></div></td>
+                <td><div class="grid-item"><select class="ennemie" id="e3"></select></div></td>
+            </tr>
+            <tr>
+                <td><div class="grid-item"><select class="allie" id="a4"></select></div></td>
+                <td><div class="grid-item"><select class="ennemie" id="e4"></select></div></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><div class="grid-item"><select class="ennemie" id="e5"></select></div></td>
+            </tr>
+        </table>
+
 
         <br /><br />
-        <button id="myButton">Click me!</button>
+        <button id="myButton">Calculer</button>
         <br /><br />
 
         <section class="resultat">
@@ -54,6 +74,42 @@
 <script> 
     const button = document.querySelector('#myButton');
     button.addEventListener('click', myFunction);
+
+
+    function createOptionsChamps(defaultSelected) {
+        let options = []
+        for (let i = 0; i < champ.length; i++) {
+            let option = document.createElement('option')
+            option.value = champ[i].name
+            option.innerText = champ[i].name
+
+            if (defaultSelected == champ[i].name)
+                option.selected = true
+            
+            options.push(option)
+        }
+        return options
+    }
+
+    function appendsOptionsToId(id, options) {
+        let element = document.querySelector(`#${id}`)
+        for (let i = 0; i < options.length; i++)
+            element.appendChild(options[i])
+    }
+
+    appendsOptionsToId('fav1', createOptionsChamps("Jhin"))
+    appendsOptionsToId('fav2', createOptionsChamps("Kai'Sa"))
+    appendsOptionsToId('fav3', createOptionsChamps("Jinx"))
+
+    appendsOptionsToId('a1', createOptionsChamps("Garen"))
+    appendsOptionsToId('a2', createOptionsChamps("Shaco"))
+    appendsOptionsToId('a3', createOptionsChamps("Viktor"))
+    appendsOptionsToId('a4', createOptionsChamps("Soraka"))
+    appendsOptionsToId('e1', createOptionsChamps("Sion"))
+    appendsOptionsToId('e2', createOptionsChamps("Hecarim"))
+    appendsOptionsToId('e3', createOptionsChamps("Veigar"))
+    appendsOptionsToId('e4', createOptionsChamps("Samira"))
+    appendsOptionsToId('e5', createOptionsChamps("Yuumi"))
 
     function myFunction() {
         let classAllies   = document.querySelectorAll('.allie')
@@ -129,17 +185,31 @@
         finale.sort(function(a, b) {return b.average - a.average})
 
 
-        document.querySelector('.res').innerHTML = ""
+        let favChamp = []
+        favChamp.push(document.querySelector('#fav1').value)
+        favChamp.push(document.querySelector('#fav2').value)
+        favChamp.push(document.querySelector('#fav3').value)
 
+        document.querySelector('.res').innerHTML = ""
         for (let i = 0; i < finale.length; i++) {
             if (!isNaN(finale[i].average)) {
                 let li = document.createElement('li')
                 li.textContent = `${finale[i].name}: ${finale[i].average.toFixed(2)}%`
 
+                for (let j = 0; j < favChamp.length; j++)
+                    if (favChamp[j] == finale[i].name)
+                        li.style.backgroundColor = "yellow"
+
                 document.querySelector('.res').append(li)
+            } else {
+                console.log(finale[i])
             }
         }
     }
+
+
+
+
 </script>
 
 <style>
