@@ -88,6 +88,15 @@
             
             options.push(option)
         }
+
+        if (defaultSelected == "Default") {
+            let option = document.createElement('option')
+            option.value = "Default"
+            option.innerText = "-"
+            option.selected = true
+            options.push(option)
+        }
+
         return options
     }
 
@@ -101,15 +110,24 @@
     appendsOptionsToId('fav2', createOptionsChamps("Kai'Sa"))
     appendsOptionsToId('fav3', createOptionsChamps("Jinx"))
 
-    appendsOptionsToId('a1', createOptionsChamps("Garen"))
-    appendsOptionsToId('a2', createOptionsChamps("Shaco"))
-    appendsOptionsToId('a3', createOptionsChamps("Viktor"))
-    appendsOptionsToId('a4', createOptionsChamps("Soraka"))
-    appendsOptionsToId('e1', createOptionsChamps("Sion"))
-    appendsOptionsToId('e2', createOptionsChamps("Hecarim"))
-    appendsOptionsToId('e3', createOptionsChamps("Veigar"))
-    appendsOptionsToId('e4', createOptionsChamps("Samira"))
-    appendsOptionsToId('e5', createOptionsChamps("Yuumi"))
+    //appendsOptionsToId('a1', createOptionsChamps("Garen"))
+    //appendsOptionsToId('a2', createOptionsChamps("Shaco"))
+    //appendsOptionsToId('a3', createOptionsChamps("Viktor"))
+    //appendsOptionsToId('a4', createOptionsChamps("Soraka"))
+    //appendsOptionsToId('e1', createOptionsChamps("Sion"))
+    //appendsOptionsToId('e2', createOptionsChamps("Hecarim"))
+    //appendsOptionsToId('e3', createOptionsChamps("Veigar"))
+    //appendsOptionsToId('e4', createOptionsChamps("Samira"))
+    //appendsOptionsToId('e5', createOptionsChamps("Yuumi"))
+    appendsOptionsToId('a1', createOptionsChamps("Default"))
+    appendsOptionsToId('a2', createOptionsChamps("Default"))
+    appendsOptionsToId('a3', createOptionsChamps("Default"))
+    appendsOptionsToId('a4', createOptionsChamps("Default"))
+    appendsOptionsToId('e1', createOptionsChamps("Default"))
+    appendsOptionsToId('e2', createOptionsChamps("Default"))
+    appendsOptionsToId('e3', createOptionsChamps("Default"))
+    appendsOptionsToId('e4', createOptionsChamps("Default"))
+    appendsOptionsToId('e5', createOptionsChamps("Default"))
 
     function myFunction() {
         let classAllies   = document.querySelectorAll('.allie')
