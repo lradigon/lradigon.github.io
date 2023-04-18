@@ -4,18 +4,18 @@
 </head>
 <body>
     <header>
-        <h1>LeagueOfWinn</h1>
+        <h1>LeagueOfWin</h1>
     </header>
 
     <main>
-        <h2>Rôle :</h2>
-        <select id="role">
-            <option value="Top">Top</option>
-            <option value="Jungle">Jungle</option>
-            <option value="Mid">Mid</option>
-            <option selected value="ADC">Adc</option>
-            <option value="Support">Supp</option>
-        </select>
+		<h2>Rôle :</h2>
+			<div id="role-images">
+			  <a href="#" onclick="selectRole('Top', this)"><img class="role-image transparent" src="./img/Position_Challenger-Top.png" alt="Top" /></a>
+			  <a href="#" onclick="selectRole('Jungle', this)"><img class="role-image transparent" src="./img/Position_Challenger-Jungle.png" alt="Jungle" /></a>
+			  <a href="#" onclick="selectRole('Mid', this)"><img class="role-image transparent" src="./img/Position_Challenger-Mid.png" alt="Mid" /></a>
+			  <a href="#" onclick="selectRole('ADC', this)"><img class="role-image transparent" src="./img/Position_Challenger-Bot.png" alt="Adc" /></a>
+			  <a href="#" onclick="selectRole('Support', this)"><img class="role-image transparent" src="./img/Position_Challenger-Support.png" alt="Supp" /></a>
+			</div>
 
         <h3>Champions favoris:</h3>
         <select id="fav1"></select>
@@ -26,21 +26,27 @@
 
         <table>
             <tr>
-                <th><div><img id="a1-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect allie" id="a1"></select></div></th>
-                <th><div><img id="a2-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect allie" id="a2"></select></div></th>
-                <th><div><img id="a3-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect allie" id="a3"></select></div></th>
-                <th><div><img id="a4-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect allie" id="a4"></select></div></th>
+                <th><div><img id="a1-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a1"></select></div></th>
+                <th><div><img id="a2-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a2"></select></div></th>
+                <th><div><img id="a3-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a3"></select></div></th>
+                <th><div><img id="a4-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a4"></select></div></th>
+				<th><div><img id="a5-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a5"></select></div></th>
                 <th style="display: block;"><div style="position: absolute;" class="res"></div></th>
-                <th><div><img id="e1-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect ennemie" id="e1"></select></div></th>
-                <th><div><img id="e2-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect ennemie" id="e2"></select></div></th>
-                <th><div><img id="e3-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect ennemie" id="e3"></select></div></th>
-                <th><div><img id="e4-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect ennemie" id="e4"></select></div></th>
-                <th><div><img id="e5-img" class="champback" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"/><select class="champselect ennemie" id="e5"></select></div></th>
+                <th><div><img id="e1-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e1"></select></div></th>
+                <th><div><img id="e2-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e2"></select></div></th>
+                <th><div><img id="e3-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e3"></select></div></th>
+                <th><div><img id="e4-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e4"></select></div></th>
+                <th><div><img id="e5-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e5"></select></div></th>
             </tr>
         </table>
     </main>
 
 </body>
+
+
+<footer>
+     <p>&copy; 2023 LeagueOfWin. Tous droits réservés.</p>
+</footer>
 </html>
 
 <script src="./avec.js"></script>
@@ -224,7 +230,22 @@
     }
 
 
+   function selectRole(role, element) {
+        // Désélectionner toutes les images
+        const images = document.getElementsByClassName("role-image");
+        for (let i = 0; i < images.length; i++) {
+            images[i].classList.remove("selected");
+        }
 
+        // Sélectionner l'image cliquée
+        const selectedImage = element.children[0];
+        selectedImage.classList.add("selected");
+
+        // Votre logique pour gérer la sélection de rôle
+    }
+</script>
+
+ 
 
 </script>
 
@@ -233,17 +254,30 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #1a2029;
+	text-align: center;
 }
 
 header {
-    background-color: #1a1a1a;
+    background-color: #3c3e44;
     padding: 20px;
     text-align: center;
+    border-bottom: 4px solid #c79242;
 }
 
 h1 {
+    color: #c79242;
+    font-size: 2.5rem;
+}
+
+h2 {
     color: #ffffff;
-    font-size: 2rem;
+    font-size: 1.5rem;
+}
+
+h3 {
+    color: #ffffff;
+    font-size: 1.5rem;
 }
 
 main {
@@ -260,13 +294,58 @@ table {
   border-collapse: collapse;
 }
 
+.res {
+position: fixed;
+top: calc(50% + 110px);
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+
+.res::before {
+content: "VS";
+color: white;
+font-size: 24px;
+}
+
 th {
-  width: 10%;
+  width: 8.3%;
   overflow: hidden;
 }
 
 .champback {
-  width: 100%;
+width: 100%;
+}
+
+
+footer {
+    background-color: #3c3e44;
+    padding: 20px;
+    text-align: center;
+    border-top: 4px solid #c79242;
+}
+
+
+footer p {
+    color: #ffffff;
+}
+
+.role-image {
+opacity: 0.3;
+transition: opacity 0.3s;
+cursor: pointer;
+}
+
+.selected {
+    opacity: 1;
+}
+
+.role-image:hover {
+    opacity: 0.6;
+}
+
+.selected:hover {
+    opacity: 1;
 }
 
 </style>
