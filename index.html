@@ -40,7 +40,8 @@
                 <h3>Champions favoris:</h3>
                 <select id="fav1"></select>
                 <select id="fav2"></select>
-                <select id="fav3"></select> 
+                <select id="fav3"></select>
+                <div class="res"></div>
             </div>
         </div>
     </main>
@@ -110,6 +111,8 @@
     appendsOptionsToId('e4', createOptionsChamps("Default"))
     appendsOptionsToId('e5', createOptionsChamps("Default"))
 
+    const currRole = "ADC"
+
     let champselects = document.getElementsByClassName("champselect")
     for (let i = 0; i < champselects.length; i++) {
         champselects[i].addEventListener('change', () => {modifyOption(champselects[i], i)})
@@ -141,7 +144,8 @@
 
 
 
-        let role = document.querySelector('#role').value
+        //let role = document.querySelector('#role').value
+        let role = currRole
         
         let champInRole = []
 
@@ -245,6 +249,7 @@
         const selectedImage = element.children[0];
         selectedImage.classList.add("selected");
 
+        currRole = role
         // Votre logique pour gérer la sélection de rôle
     }
 </script>
@@ -298,19 +303,6 @@ table {
   border-collapse: collapse;
 }
 
-.res {
-position: fixed;
-top: calc(50% + 110px);
-left: 50%;
-transform: translate(-50%, -50%);
-}
-
-
-.res::before {
-content: "VS";
-color: white;
-font-size: 24px;
-}
 
 th {
   width: 8.3%;
