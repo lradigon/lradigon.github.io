@@ -8,37 +8,41 @@
     </header>
 
     <main>
-		<h2>Rôle :</h2>
-			<div id="role-images">
-			  <a href="#" onclick="selectRole('Top', this)"><img class="role-image transparent" src="./img/Position_Challenger-Top.png" alt="Top" /></a>
-			  <a href="#" onclick="selectRole('Jungle', this)"><img class="role-image transparent" src="./img/Position_Challenger-Jungle.png" alt="Jungle" /></a>
-			  <a href="#" onclick="selectRole('Mid', this)"><img class="role-image transparent" src="./img/Position_Challenger-Mid.png" alt="Mid" /></a>
-			  <a href="#" onclick="selectRole('ADC', this)"><img class="role-image transparent" src="./img/Position_Challenger-Bot.png" alt="Adc" /></a>
-			  <a href="#" onclick="selectRole('Support', this)"><img class="role-image transparent" src="./img/Position_Challenger-Support.png" alt="Supp" /></a>
-			</div>
+        <div style="display: flex;">
+            <div style="width: 50%;">
+                <table>
+                    <tr>
+                        <th><div><img id="a1-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a1"></select></div></th>
+                        <th><div><img id="a2-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a2"></select></div></th>
+                        <th><div><img id="a3-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a3"></select></div></th>
+                        <th><div><img id="a4-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a4"></select></div></th>
+                        <th><div><img id="a5-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a5"></select></div></th>
+                    </tr>
+                    <tr>
+                        <th><div><img id="e1-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e1"></select></div></th>
+                        <th><div><img id="e2-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e2"></select></div></th>
+                        <th><div><img id="e3-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e3"></select></div></th>
+                        <th><div><img id="e4-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e4"></select></div></th>
+                        <th><div><img id="e5-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e5"></select></div></th>
+                    </tr>
+                </table>
+            </div>
+            <div style="width: 50%;">
+                <h2>Rôle :</h2>
+                <div id="role-images">
+                    <a href="#" onclick="selectRole('Top', this)"><img class="role-image transparent" src="./img/Position_Challenger-Top.png" alt="Top" /></a>
+                    <a href="#" onclick="selectRole('Jungle', this)"><img class="role-image transparent" src="./img/Position_Challenger-Jungle.png" alt="Jungle" /></a>
+                    <a href="#" onclick="selectRole('Mid', this)"><img class="role-image transparent" src="./img/Position_Challenger-Mid.png" alt="Mid" /></a>
+                    <a href="#" onclick="selectRole('ADC', this)"><img class="role-image transparent" src="./img/Position_Challenger-Bot.png" alt="Adc" /></a>
+                    <a href="#" onclick="selectRole('Support', this)"><img class="role-image transparent" src="./img/Position_Challenger-Support.png" alt="Supp" /></a>
+                </div>
 
-        <h3>Champions favoris:</h3>
-        <select id="fav1"></select>
-        <select id="fav2"></select>
-        <select id="fav3"></select>
-
-        <br /><br /><br /><br />
-
-        <table>
-            <tr>
-                <th><div><img id="a1-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a1"></select></div></th>
-                <th><div><img id="a2-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a2"></select></div></th>
-                <th><div><img id="a3-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a3"></select></div></th>
-                <th><div><img id="a4-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a4"></select></div></th>
-				<th><div><img id="a5-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a5"></select></div></th>
-                <th style="display: block;"><div style="position: absolute;" class="res"></div></th>
-                <th><div><img id="e1-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e1"></select></div></th>
-                <th><div><img id="e2-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e2"></select></div></th>
-                <th><div><img id="e3-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e3"></select></div></th>
-                <th><div><img id="e4-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e4"></select></div></th>
-                <th><div><img id="e5-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e5"></select></div></th>
-            </tr>
-        </table>
+                <h3>Champions favoris:</h3>
+                <select id="fav1"></select>
+                <select id="fav2"></select>
+                <select id="fav3"></select> 
+            </div>
+        </div>
     </main>
 
 </body>
