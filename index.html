@@ -18,12 +18,16 @@
                         <th><div><img id="a4-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a4"></select></div></th>
                         <th><div><img id="a5-img" class="champback" src="./img/empty.png"/><select class="champselect allie" id="a5"></select></div></th>
                     </tr>
+					    <tr>
+							<td colspan="5" style="text-align: center; font-size: 32px; font-weight: bold; color: white; padding-top: 20px; padding-bottom: 20px;">VS</td>
+						</tr>
                     <tr>
-                        <th><div><img id="e1-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e1"></select></div></th>
-                        <th><div><img id="e2-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e2"></select></div></th>
-                        <th><div><img id="e3-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e3"></select></div></th>
-                        <th><div><img id="e4-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e4"></select></div></th>
-                        <th><div><img id="e5-img" class="champback" src="./img/empty.png"/><select class="champselect ennemie" id="e5"></select></div></th>
+                        <th><div class="champ-container"><select class="champselect allie" id="e1"></select><img id="e1-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect allie" id="e2"></select><img id="e2-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect allie" id="e3"></select><img id="e3-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect allie" id="e4"></select><img id="e4-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect allie" id="e5"></select><img id="e5-img" class="champback" src="./img/empty.png"/></div></th>
+						
                     </tr>
                 </table>
             </div>
@@ -36,12 +40,15 @@
                     <a href="#" onclick="selectRole('ADC', this)"><img class="role-image transparent" src="./img/Position_Challenger-Bot.png" alt="Adc" /></a>
                     <a href="#" onclick="selectRole('Support', this)"><img class="role-image transparent" src="./img/Position_Challenger-Support.png" alt="Supp" /></a>
                 </div>
+			
 
                 <h3>Champions favoris:</h3>
                 <select id="fav1"></select>
                 <select id="fav2"></select>
                 <select id="fav3"></select>
                 <div class="res"></div>
+				<h3>The best champion(s) on this draft will be:</h3>
+				<div class="best-champ-res"></div>
             </div>
         </div>
     </main>
@@ -58,6 +65,8 @@
 <script src="./contre.js"></script>
 <script src="./champ.js"></script>
 <script>
+
+	// Recupere le nom des champions pour en faire une liste à intégrer sous les images (sous les champs favoris aussi peut être)
     function createOptionsChamps(defaultSelected) {
         let options = []
         for (let i = 0; i < champ.length; i++) {
@@ -81,27 +90,21 @@
 
         return options
     }
-
+	// ???
     function appendsOptionsToId(id, options) {
         let element = document.querySelector(`#${id}`)
         for (let i = 0; i < options.length; i++)
             element.appendChild(options[i])
     }
-
+	appendsOptionsToId('a1', createOptionsChamps("Default"))
+	
+	
     appendsOptionsToId('fav1', createOptionsChamps("Jhin"))
-    appendsOptionsToId('fav2', createOptionsChamps("Kai'Sa"))
+    appendsOptionsToId('fav2', createOptionsChamps("Ashe"))
     appendsOptionsToId('fav3', createOptionsChamps("Jinx"))
 
-    //appendsOptionsToId('a1', createOptionsChamps("Garen"))
-    //appendsOptionsToId('a2', createOptionsChamps("Shaco"))
-    //appendsOptionsToId('a3', createOptionsChamps("Viktor"))
-    //appendsOptionsToId('a4', createOptionsChamps("Soraka"))
-    //appendsOptionsToId('e1', createOptionsChamps("Sion"))
-    //appendsOptionsToId('e2', createOptionsChamps("Hecarim"))
-    //appendsOptionsToId('e3', createOptionsChamps("Veigar"))
-    //appendsOptionsToId('e4', createOptionsChamps("Samira"))
-    //appendsOptionsToId('e5', createOptionsChamps("Yuumi"))
-    appendsOptionsToId('a1', createOptionsChamps("Default"))
+
+    
     appendsOptionsToId('a2', createOptionsChamps("Default"))
     appendsOptionsToId('a3', createOptionsChamps("Default"))
     appendsOptionsToId('a4', createOptionsChamps("Default"))
@@ -111,13 +114,14 @@
     appendsOptionsToId('e4', createOptionsChamps("Default"))
     appendsOptionsToId('e5', createOptionsChamps("Default"))
 
-    const currRole = "ADC"
+   
 
     let champselects = document.getElementsByClassName("champselect")
     for (let i = 0; i < champselects.length; i++) {
         champselects[i].addEventListener('change', () => {modifyOption(champselects[i], i)})
     }
-
+	
+	//Mets à jour l'image du champion quand il est selectionné
     function modifyOption(element, i) {
         let img = document.querySelector(`#${element.id}-img`)
         img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${element.value}_0.jpg`
@@ -128,7 +132,7 @@
 
 
 
-
+	// Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
     function myFunction() {
         let classAllies   = document.querySelectorAll('.allie')
         let classEnnemies = document.querySelectorAll('.ennemie')
@@ -204,54 +208,148 @@
         finale.sort(function(a, b) {return b.average - a.average})
 
 
-        let favChamp = []
-        favChamp.push(document.querySelector('#fav1').value)
-        favChamp.push(document.querySelector('#fav2').value)
-        favChamp.push(document.querySelector('#fav3').value)
 
-        document.querySelector('.res').innerHTML = ""
-        for (let i = 0; i < finale.length; i++) {
-            if (!isNaN(finale[i].average)) {
-                let div = document.createElement('div')
-                let img = document.createElement('img')
 
-                div.style.display = "flex"
-                div.style.alignItems = "center"
-                div.style.justifyContent = "center"
+		 let favChamp = [];
+			favChamp.push(document.querySelector('#fav1').value);
+			favChamp.push(document.querySelector('#fav2').value);
+			favChamp.push(document.querySelector('#fav3').value);
 
-                img.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${finale[i].name}.png`
-                img.style.width = "20%"
+			document.querySelector('.res').innerHTML = "";
+			document.querySelector('.best-champ-res').innerHTML = "";
 
-                
-                for (let j = 0; j < favChamp.length; j++)
-                    if (favChamp[j] == finale[i].name)
-                        div.style.backgroundColor = "yellow"
 
-                div.append(img)
-                div.append(`${finale[i].average.toFixed(2)}%`)
 
-                document.querySelector('.res').append(div)
-            } else {
-                console.log(finale[i])
-            }
-        }
+
+			countChampFavorisIn = 0
+
+			// Parcourir la liste finale et afficher uniquement les champions favoris
+			for (let i = 0; i < finale.length; i++) {
+				if (favChamp.includes(finale[i].name) && !isNaN(finale[i].average)) {
+					let div = document.createElement('div');
+					let img = document.createElement('img');
+
+					div.style.display = "flex";
+					div.style.alignItems = "center";
+					div.style.justifyContent = "center";
+
+					img.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${finale[i].name}.png`;
+					img.style.width = "10%";
+
+					div.append(img);
+					// Créer la barre de progression
+					let progressBar = document.createElement('div');
+					progressBar.style.width = "60%";
+					progressBar.style.height = "30px";
+					progressBar.style.backgroundColor = "gray";
+					progressBar.style.position = "relative";
+					progressBar.style.borderRadius = "5px";
+
+					// Créer la partie dorée remplie de la barre de progression
+					let filledBar = document.createElement('div');
+					filledBar.style.width = `${finale[i].average.toFixed(2)}%`;
+					filledBar.style.height = "100%";
+					filledBar.style.backgroundColor = "gold";
+					filledBar.style.borderRadius = "5px";
+
+					// Ajouter le pourcentage à la barre de progression
+					let percentageText = document.createElement('span');
+					percentageText.innerHTML = `${finale[i].average.toFixed(2)}%`;
+					percentageText.style.position = "absolute";
+					percentageText.style.left = "50%";
+					percentageText.style.top = "50%";
+					percentageText.style.transform = "translate(-50%, -50%)";
+					percentageText.style.fontWeight = "bold";
+
+					progressBar.append(filledBar);
+					progressBar.append(percentageText);
+					div.append(progressBar);
+
+					document.querySelector('.res').append(div);
+					countChampFavorisIn = countChampFavorisIn + 1
+					console.log(countChampFavorisIn)
+				} else {
+					
+				}
+				
+			
+			}
+			// Trouver les champion avec le meilleur winrate
+			for ( let y = 0; y < 4 - countChampFavorisIn;y++) {
+				let bestChamp = finale[y];
+
+				// Afficher le meilleur champion en dessous du message
+				if (!isNaN(bestChamp.average)) {
+					let div = document.createElement('div');
+					let img = document.createElement('img');
+
+					div.style.display = "flex";
+					div.style.alignItems = "center";
+					div.style.justifyContent = "center";
+
+					img.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${bestChamp.name}.png`;
+					img.style.width = "10%";
+
+					div.append(img);
+					
+					 // Créer la barre de progression pour le meilleur champion
+					let progressBar = document.createElement('div');
+					progressBar.style.width = "60%";
+					progressBar.style.height = "30px";
+					progressBar.style.backgroundColor = "gray";
+					progressBar.style.position = "relative";
+					progressBar.style.borderRadius = "5px";
+
+					// Créer la partie dorée remplie de la barre de progression
+					let filledBar = document.createElement('div');
+					filledBar.style.width = `${bestChamp.average.toFixed(2)}%`;
+					filledBar.style.height = "100%";
+					filledBar.style.backgroundColor = "gold";
+					filledBar.style.borderRadius = "5px";
+
+					// Ajouter le pourcentage à la barre de progression
+					let percentageText = document.createElement('span');
+					percentageText.innerHTML = `${bestChamp.average.toFixed(2)}%`;
+					percentageText.style.position = "absolute";
+					percentageText.style.left = "50%";
+					percentageText.style.top = "50%";
+					percentageText.style.transform = "translate(-50%, -50%)";
+					percentageText.style.fontWeight = "bold";
+
+					progressBar.append(filledBar);
+					progressBar.append(percentageText);
+					div.append(progressBar);
+
+					document.querySelector('.res').append(div);
+					document.querySelector('.best-champ-res').append(div);
+				} else {
+					console.log(bestChamp);
+				}
+			}
+		}
+
+
+function selectRole(role, element) {
+    // Désélectionner toutes les images
+    const images = document.getElementsByClassName("role-image");
+    for (let i = 0; i < images.length; i++) {
+        images[i].classList.remove("selected");
     }
 
+    // Sélectionner l'image cliquée
+    const selectedImage = element.children[0];
+    selectedImage.classList.add("selected");
 
-   function selectRole(role, element) {
-        // Désélectionner toutes les images
-        const images = document.getElementsByClassName("role-image");
-        for (let i = 0; i < images.length; i++) {
-            images[i].classList.remove("selected");
-        }
+    currRole = role;
 
-        // Sélectionner l'image cliquée
-        const selectedImage = element.children[0];
-        selectedImage.classList.add("selected");
+    // Appeler la fonction myFunction pour mettre à jour les statistiques et l'affichage
+    myFunction();
+}
 
-        currRole = role
-        // Votre logique pour gérer la sélection de rôle
-    }
+
+fav1.addEventListener('change', myFunction);
+fav2.addEventListener('change', myFunction);
+fav3.addEventListener('change', myFunction);
 </script>
 
  
@@ -269,7 +367,7 @@ body {
 
 header {
     background-color: #3c3e44;
-    padding: 20px;
+    padding: 1px;
     text-align: center;
     border-bottom: 4px solid #c79242;
 }
@@ -310,10 +408,8 @@ th {
 }
 
 .champback {
-width: 100%;
+    width: 100%;
 }
-
-
 footer {
     background-color: #3c3e44;
     padding: 20px;
@@ -342,6 +438,11 @@ cursor: pointer;
 
 .selected:hover {
     opacity: 1;
+}
+
+
+.champselect {
+    margin-bottom: 10px;
 }
 
 </style>
