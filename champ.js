@@ -36,7 +36,7 @@ let champ = [
       role: "ADC"
     },
     {
-      name: "Aurelion Sol",
+      name: "AurelionSol",
       role: "Mid"
     },
     {
@@ -72,7 +72,7 @@ let champ = [
       role: "Mid"
     },
     {
-      name: "Cho'Gath",
+      name: "Chogath",
       role: "Top"
     },
     {
@@ -88,7 +88,7 @@ let champ = [
       role: "Mid"
     },
     {
-      name: "Dr. Mundo",
+      name: "DrMundo",
       role: "Top"
     },
     {
@@ -176,7 +176,7 @@ let champ = [
       role: "Support"
     },
     {
-      name: "Jarvan IV",
+      name: "JarvanIV",
       role: "Jungle"
     },
     {
@@ -196,7 +196,7 @@ let champ = [
       role: "ADC"
     },
     {
-      name: "Kai'Sa",
+      name: "Kaisa",
       role: "ADC"
     },
     {
@@ -232,7 +232,7 @@ let champ = [
       role: "Top"
     },
     {
-      name: "Kha'Zix",
+      name: "Khazix",
       role: "Jungle"
     },
     {
@@ -244,7 +244,7 @@ let champ = [
       role: "Top"
     },
     {
-      name: "Kog'Maw",
+      name: "KogMaw",
       role: "ADC"
     },
     {
@@ -252,7 +252,7 @@ let champ = [
       role: "Mid"
     },
     {
-      name: "Lee Sin",
+      name: "LeeSin",
       role: "Jungle"
     },
     {
@@ -292,11 +292,11 @@ let champ = [
       role: "Top"
     },
     {
-      name: "Master Yi",
+      name: "MasterYi",
       role: "Jungle"
     },
     {
-      name: "Miss Fortune",
+      name: "MissFortune",
       role: "ADC"
     },
     {
@@ -332,7 +332,7 @@ let champ = [
       role: "Jungle"
     },
     {
-      name: "Nunu & Willump",
+      name: "Nunu",
       role: "Jungle"
     },
     {
@@ -376,7 +376,7 @@ let champ = [
       role: "Jungle"
     },
     {
-      name: "Rek'Sai",
+      name: "RekSai",
       role: "Jungle"
     },
     {
@@ -472,7 +472,7 @@ let champ = [
       role: "Mid"
     },
     {
-      name: "Tahm Kench",
+      name: "TahmKench",
       role: "Support"
     },
     {
@@ -508,7 +508,7 @@ let champ = [
       role: "Top"
     },
     {
-      name: "Twisted Fate",
+      name: "TwistedFate",
       role: "Mid"
     },
     {
@@ -536,7 +536,7 @@ let champ = [
       role: "Mid"
     },
     {
-      name: "Vel'Koz",
+      name: "Velkoz",
       role: "Mid"
     },
     {
@@ -564,7 +564,7 @@ let champ = [
       role: "Jungle"
     },
     {
-      name: "Wukong",
+      name: "MonkeyKing",
       role: "Top"
     },
     {
@@ -576,7 +576,7 @@ let champ = [
       role: "Mid"
     },
     {
-      name: "Xin Zhao",
+      name: "XinZhao",
       role: "Jungle"
     },
     {
