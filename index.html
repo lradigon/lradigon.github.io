@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
@@ -12,21 +13,21 @@
             <div style="width: 50%;">
                 <table>
                     <tr>
-                        <th><div><img id="a1-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a1" type="text" placeholder="Champions"></div></form></div></th>
-                        <th><div><img id="a2-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a2" type="text" placeholder="Champions"></div></form></div></th>
-                        <th><div><img id="a3-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a3" type="text" placeholder="Champions"></div></form></div></th>
-                        <th><div><img id="a4-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a4" type="text" placeholder="Champions"></div></form></div></th>
-                        <th><div><img id="a5-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a5" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div><img id="a1-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a1" class="allie" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div><img id="a2-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a2" class="allie" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div><img id="a3-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a3" class="allie" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div><img id="a4-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a4" class="allie" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div><img id="a5-img" class="champback" src="./img/empty.png"/><form autocomplete="off"><div class="autocomplete"> <input id="a5" class="allie" type="text" placeholder="Champions"></div></form></div></th>
                     </tr>
 					    <tr>
 							<td colspan="5" style="text-align: center; font-size: 32px; font-weight: bold; color: white; padding-top: 20px; padding-bottom: 20px;">VS</td>
 						</tr>
                     <tr>
-                        <th><div class="champ-container"><select class="champselect allie" id="e1"></select><img id="e1-img" class="champback" src="./img/empty.png"/></div></th>
-						<th><div class="champ-container"><select class="champselect allie" id="e2"></select><img id="e2-img" class="champback" src="./img/empty.png"/></div></th>
-						<th><div class="champ-container"><select class="champselect allie" id="e3"></select><img id="e3-img" class="champback" src="./img/empty.png"/></div></th>
-						<th><div class="champ-container"><select class="champselect allie" id="e4"></select><img id="e4-img" class="champback" src="./img/empty.png"/></div></th>
-						<th><div class="champ-container"><select class="champselect allie" id="e5"></select><img id="e5-img" class="champback" src="./img/empty.png"/></div></th>
+                        <th><div class="champ-container"><select class="champselect ennemie" id="e1"></select><img id="e1-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect ennemie" id="e2"></select><img id="e2-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect ennemie" id="e3"></select><img id="e3-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect ennemie" id="e4"></select><img id="e4-img" class="champback" src="./img/empty.png"/></div></th>
+						<th><div class="champ-container"><select class="champselect ennemie" id="e5"></select><img id="e5-img" class="champback" src="./img/empty.png"/></div></th>
 						
                     </tr>
                 </table>
@@ -61,47 +62,17 @@
 </footer>
 </html>
 
-<script src="./avec.js"></script>
-<script src="./contre.js"></script>
-<script src="./champ.js"></script>
+<script src="./data/avec.js"></script>
+<script src="./data/contre.js"></script>
+<script src="./data/champ.js"></script>
+<script src="./js/autocomplete.js"></script>
+<script src="./js/select.js"></script>
+<script src="./js/stats.js"></script>
+<script src="./js/role.js"></script>
 <script>
-
-	// Recupere le nom des champions pour en faire une liste à intégrer sous les images (sous les champs favoris aussi peut être)
-    function createOptionsChamps(defaultSelected) {
-        let options = []
-        for (let i = 0; i < champ.length; i++) {
-            let option = document.createElement('option')
-            option.value = champ[i].name
-            option.innerText = champ[i].name
-
-            if (defaultSelected == champ[i].name)
-                option.selected = true
-            
-            options.push(option)
-        }
-
-        if (defaultSelected == "Default") {
-            let option = document.createElement('option')
-            option.value = "Default"
-            option.innerText = "-"
-            option.selected = true
-            options.push(option)
-        }
-
-        return options
-    }
-	// ???
-    function appendsOptionsToId(id, options) {
-        let element = document.querySelector(`#${id}`)
-        for (let i = 0; i < options.length; i++)
-            element.appendChild(options[i])
-    }
-	
-	
     appendsOptionsToId('fav1', createOptionsChamps("Jhin"))
     appendsOptionsToId('fav2', createOptionsChamps("Ashe"))
     appendsOptionsToId('fav3', createOptionsChamps("Jinx"))
-
 
     //appendsOptionsToId('a1', createOptionsChamps("Default"))
     //appendsOptionsToId('a2', createOptionsChamps("Default"))
@@ -121,454 +92,12 @@
     autocomplete(document.getElementById("a5"), champ.map(function(obj) {return obj.name}));
 
 
-    function autocomplete(inp, arr) {
-        var currentFocus;
-
-        inp.addEventListener("input", function(e) {
-            var a, b, i, val = this.value;
-            closeAllLists();
-            if (!val) { return false;}
-            currentFocus = -1;
-            a = document.createElement("DIV");
-            a.setAttribute("id", this.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            this.parentNode.appendChild(a);
-            for (i = 0; i < arr.length; i++) {
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                b = document.createElement("DIV");
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                b.addEventListener("click", function(e) {
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    closeAllLists();
-                    modifyOption(inp, 0)
-                });
-                a.appendChild(b);
-                }
-            }
-        });
-
-        inp.addEventListener("keydown", function(e) {
-            var x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) { // KEY DOWN
-                currentFocus++;
-                addActive(x);
-            } else if (e.keyCode == 38) { // KEY UP
-                currentFocus--;
-                addActive(x);
-            } else if (e.keyCode == 13) { // KEY ENTER
-                e.preventDefault();
-                if (currentFocus > -1)
-                    if (x) x[currentFocus].click();
-            }
-        });
-
-        function addActive(x) {
-            if (!x) return false;
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            x[currentFocus].classList.add("autocomplete-active");
-        }
-
-        function removeActive(x) {
-            for (var i = 0; i < x.length; i++)
-                x[i].classList.remove("autocomplete-active");
-        }
-        function closeAllLists(elmnt) {
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++)
-                if (elmnt != x[i] && elmnt != inp)
-                    x[i].parentNode.removeChild(x[i]);
-        }
-
-        document.addEventListener("click", function (e) {
-            closeAllLists(e.target);
-        });
-    }
-
-
-
-   
+    fav1.addEventListener('change', myFunction);
+    fav2.addEventListener('change', myFunction);
+    fav3.addEventListener('change', myFunction);
 
     let champselects = document.getElementsByClassName("champselect")
     for (let i = 0; i < champselects.length; i++) {
         champselects[i].addEventListener('change', () => {modifyOption(champselects[i], i)})
     }
-	
-	//Mets à jour l'image du champion quand il est selectionné
-    function modifyOption(element, i) {
-        console.log(element)
-        let img = document.querySelector(`#${element.id}-img`)
-        img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${element.value}_0.jpg`
-        myFunction()
-    }
-
-
-
-
-
-	// Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
-    function myFunction() {
-        let classAllies   = document.querySelectorAll('.allie')
-        let classEnnemies = document.querySelectorAll('.ennemie')
-    
-        let allies   = []
-        let ennemies = []
-
-        for (let i = 0; i < classAllies.length; i++)
-            allies.push(classAllies[i].value)
-        for (let i = 0; i < classEnnemies.length; i++)
-            ennemies.push(classEnnemies[i].value)
-
-
-
-
-        //let role = document.querySelector('#role').value
-        let role = currRole
-        
-        let champInRole = []
-
-        for (let i = 0; i < champ.length; i++)
-            if (champ[i].role == role)
-                champInRole.push(champ[i].name)
-
-
-        let stats = []
-        for (let i = 0; i < champInRole.length; i++)
-            stats.push([])
-
-        for (let i = 0; i < champInRole.length; i++) {
-            let currChamp = {}
-            for (const [key, value] of Object.entries(avec)) {
-                if (value.Avec == champInRole[i])
-                    currChamp = value
-            }
-
-            for (const [key, value] of Object.entries(currChamp)) {
-                for (let j = 0; j < allies.length; j++) {
-                    if (key == allies[j]) {
-                        if (typeof(value) == "number")
-                            stats[i].push(value)
-                        if (typeof(value) == "string")
-                            stats[i].push(parseFloat(value.replace(",",".")))
-                    }
-                }
-            }
-
-            currChamp = {}
-            for (const [key, value] of Object.entries(contre)) {
-                if (value.Contre == champInRole[i])
-                    currChamp = value
-            }
-
-            for (const [key, value] of Object.entries(currChamp)) {
-                for (let j = 0; j < ennemies.length; j++) {
-                    if (key == ennemies[j]) {
-                        if (typeof(value) == "number")
-                            stats[i].push(value)
-                        if (typeof(value) == "string")
-                            stats[i].push(parseFloat(value.replace(",",".")))
-                    }
-                }
-            }
-        }
-
-
-        let finale = []
-        for (let i = 0; i < champInRole.length; i++) {
-            const sum = stats[i].reduce((acc, val) => acc + val, 0);
-            const avg = sum / stats[i].length;
-            finale.push({name: champInRole[i], average: avg})
-        }
-        finale.sort(function(a, b) {return b.average - a.average})
-
-
-
-
-		 let favChamp = [];
-			favChamp.push(document.querySelector('#fav1').value);
-			favChamp.push(document.querySelector('#fav2').value);
-			favChamp.push(document.querySelector('#fav3').value);
-
-			document.querySelector('.res').innerHTML = "";
-			document.querySelector('.best-champ-res').innerHTML = "";
-
-
-
-
-			countChampFavorisIn = 0
-
-			// Parcourir la liste finale et afficher uniquement les champions favoris
-			for (let i = 0; i < finale.length; i++) {
-				if (favChamp.includes(finale[i].name) && !isNaN(finale[i].average)) {
-					let div = document.createElement('div');
-					let img = document.createElement('img');
-
-					div.style.display = "flex";
-					div.style.alignItems = "center";
-					div.style.justifyContent = "center";
-
-					img.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${finale[i].name}.png`;
-					img.style.width = "10%";
-
-					div.append(img);
-					// Créer la barre de progression
-					let progressBar = document.createElement('div');
-					progressBar.style.width = "60%";
-					progressBar.style.height = "30px";
-					progressBar.style.backgroundColor = "gray";
-					progressBar.style.position = "relative";
-					progressBar.style.borderRadius = "5px";
-
-					// Créer la partie dorée remplie de la barre de progression
-					let filledBar = document.createElement('div');
-					filledBar.style.width = `${finale[i].average.toFixed(2)}%`;
-					filledBar.style.height = "100%";
-					filledBar.style.backgroundColor = "gold";
-					filledBar.style.borderRadius = "5px";
-
-					// Ajouter le pourcentage à la barre de progression
-					let percentageText = document.createElement('span');
-					percentageText.innerHTML = `${finale[i].average.toFixed(2)}%`;
-					percentageText.style.position = "absolute";
-					percentageText.style.left = "50%";
-					percentageText.style.top = "50%";
-					percentageText.style.transform = "translate(-50%, -50%)";
-					percentageText.style.fontWeight = "bold";
-
-					progressBar.append(filledBar);
-					progressBar.append(percentageText);
-					div.append(progressBar);
-
-					document.querySelector('.res').append(div);
-					countChampFavorisIn = countChampFavorisIn + 1
-					console.log(countChampFavorisIn)
-				} else {
-					
-				}
-				
-			
-			}
-			// Trouver les champion avec le meilleur winrate
-			for ( let y = 0; y < 4 - countChampFavorisIn;y++) {
-				let bestChamp = finale[y];
-
-				// Afficher le meilleur champion en dessous du message
-				if (!isNaN(bestChamp.average)) {
-					let div = document.createElement('div');
-					let img = document.createElement('img');
-
-					div.style.display = "flex";
-					div.style.alignItems = "center";
-					div.style.justifyContent = "center";
-
-					img.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${bestChamp.name}.png`;
-					img.style.width = "10%";
-
-					div.append(img);
-					
-					 // Créer la barre de progression pour le meilleur champion
-					let progressBar = document.createElement('div');
-					progressBar.style.width = "60%";
-					progressBar.style.height = "30px";
-					progressBar.style.backgroundColor = "gray";
-					progressBar.style.position = "relative";
-					progressBar.style.borderRadius = "5px";
-
-					// Créer la partie dorée remplie de la barre de progression
-					let filledBar = document.createElement('div');
-					filledBar.style.width = `${bestChamp.average.toFixed(2)}%`;
-					filledBar.style.height = "100%";
-					filledBar.style.backgroundColor = "gold";
-					filledBar.style.borderRadius = "5px";
-
-					// Ajouter le pourcentage à la barre de progression
-					let percentageText = document.createElement('span');
-					percentageText.innerHTML = `${bestChamp.average.toFixed(2)}%`;
-					percentageText.style.position = "absolute";
-					percentageText.style.left = "50%";
-					percentageText.style.top = "50%";
-					percentageText.style.transform = "translate(-50%, -50%)";
-					percentageText.style.fontWeight = "bold";
-
-					progressBar.append(filledBar);
-					progressBar.append(percentageText);
-					div.append(progressBar);
-
-					document.querySelector('.res').append(div);
-					document.querySelector('.best-champ-res').append(div);
-				} else {
-					console.log(bestChamp);
-				}
-			}
-		}
-
-
-function selectRole(role, element) {
-    // Désélectionner toutes les images
-    const images = document.getElementsByClassName("role-image");
-    for (let i = 0; i < images.length; i++) {
-        images[i].classList.remove("selected");
-    }
-
-    // Sélectionner l'image cliquée
-    const selectedImage = element.children[0];
-    selectedImage.classList.add("selected");
-
-    currRole = role;
-
-    // Appeler la fonction myFunction pour mettre à jour les statistiques et l'affichage
-    myFunction();
-}
-
-
-fav1.addEventListener('change', myFunction);
-fav2.addEventListener('change', myFunction);
-fav3.addEventListener('change', myFunction);
 </script>
-
- 
-
-</script>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1a2029;
-	text-align: center;
-}
-
-header {
-    background-color: #3c3e44;
-    padding: 1px;
-    text-align: center;
-    border-bottom: 4px solid #c79242;
-}
-
-h1 {
-    color: #c79242;
-    font-size: 2.5rem;
-}
-
-h2 {
-    color: #ffffff;
-    font-size: 1.5rem;
-}
-
-h3 {
-    color: #ffffff;
-    font-size: 1.5rem;
-}
-
-main {
-    padding: 20px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 5px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-
-th {
-  width: 8.3%;
-  overflow: hidden;
-}
-
-.champback {
-    width: 100%;
-}
-footer {
-    background-color: #3c3e44;
-    padding: 20px;
-    text-align: center;
-    border-top: 4px solid #c79242;
-}
-
-
-footer p {
-    color: #ffffff;
-}
-
-.role-image {
-opacity: 0.3;
-transition: opacity 0.3s;
-cursor: pointer;
-}
-
-.selected {
-    opacity: 1;
-}
-
-.role-image:hover {
-    opacity: 0.6;
-}
-
-.selected:hover {
-    opacity: 1;
-}
-
-
-.champselect {
-    margin-bottom: 10px;
-}
-
-
-.autocomplete {
-  /*the container must be positioned relative:*/
-  position: absolute;
-  display: flex;
-}
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
-}
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  border-bottom: 1px solid #d4d4d4;
-}
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9;
-}
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important;
-  color: #ffffff;
-}
-
-
-</style>
