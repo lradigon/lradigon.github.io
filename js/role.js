@@ -11,6 +11,6 @@ function selectRole(role, element) {
 
     currRole = role;
 
-    // Appeler la fonction myFunction pour mettre à jour les statistiques et l'affichage
-    myFunction();
+    // Appeler la fonction doAllStats pour mettre à jour les statistiques et l'affichage
+    doAllStats();
 }

@@ -1,4 +1,3 @@
-
 function autocomplete(inp, arr) {
     var currentFocus;
 
@@ -12,17 +11,17 @@ function autocomplete(inp, arr) {
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
         for (i = 0; i < arr.length; i++) {
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-            b = document.createElement("DIV");
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-            b.addEventListener("click", function(e) {
-                inp.value = this.getElementsByTagName("input")[0].value;
-                closeAllLists();
-                modifyOption(inp, 0)
-            });
-            a.appendChild(b);
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && !isChampSelected(arr[i])) {
+                b = document.createElement("DIV");
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                    modifyOption(inp)
+                });
+                a.appendChild(b);
             }
         }
     });
@@ -68,9 +67,30 @@ function autocomplete(inp, arr) {
 }
 
 //Mets à jour l'image du champion quand il est selectionné
-function modifyOption(element, i) {
-    console.log(element)
+function modifyOption(element) {
+    champs[champs.findIndex(a => a.id === element.id)].name = element.value
+
     let img = document.querySelector(`#${element.id}-img`)
     img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${element.value}_0.jpg`
-    myFunction()
+
+    // Ajoutez la classe 'champActive' et supprimez la classe 'champback'
+    img.classList.remove('champback');
+    img.classList.add('champActive');
+    
+    doAllStats()
+}
+
+function isChampSelected(champName) {
+    let classAllies   = document.querySelectorAll('.allie')
+    let classEnnemies = document.querySelectorAll('.ennemie')
+
+    for (let i = 0; i < classAllies.length; i++)
+        if (champName === classAllies[i].value)
+            return true
+
+    for (let i = 0; i < classEnnemies.length; i++)
+        if (champName === classEnnemies[i].value)
+            return true
+
+    return false
 }

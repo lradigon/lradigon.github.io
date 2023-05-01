@@ -248,7 +248,7 @@ let champ = [
       role: "ADC"
     },
     {
-      name: "LeBlanc",
+      name: "Leblanc",
       role: "Mid"
     },
     {
