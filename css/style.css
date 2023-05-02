@@ -100,44 +100,6 @@ cursor: pointer;
 
 /* Test de la frise */
 
-.frise {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    background-image: linear-gradient(to right, rgba(255, 0, 0, 0.3), rgba(0, 0, 255, 0.3)); /* Remplacez les couleurs ici */
-    padding: 10px 45px; /* Remplacez la valeur de padding */
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 80%;
-}
-
-.results-images {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
-    height: 40px; /* Ajoutez cette ligne pour donner une hauteur à la div */
-}
-
-.defaite,
-.victoire {
-    position: absolute;
-    height: calc(100% + 60px); /* Ajustez la hauteur ici (un peu plus grande que la frise) */
-    width: auto; /* Ajustez la largeur pour conserver les proportions de l'image */
-    object-fit: contain; /* Assurez-vous que les images ne sont pas déformées */
-}
-
-.defaite {
-    right: 1400px;
-	height: 120px;
-	top: -5px;
-}
-
-.victoire {
-    left: 1400px;
-	height: 120px;
-}
 
 .champions {
     display: flex;
