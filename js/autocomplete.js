@@ -19,6 +19,7 @@ function autocomplete(inp, arr) {
                 b.addEventListener("click", function(e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
+                    console.log(inp)
                     modifyOption(inp)
                 });
                 a.appendChild(b);
@@ -56,26 +57,47 @@ function autocomplete(inp, arr) {
     }
     function closeAllLists(elmnt) {
         var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++)
-            if (elmnt != x[i] && elmnt != inp)
-                x[i].parentNode.removeChild(x[i]);
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                let input = document.querySelector(`#${x[i].id.slice(0, 2)}`)
+                let isAChamp = champ.findIndex(obj => obj.name.toLowerCase() === input.value.toLowerCase());
+
+                if (input.value === "") {
+                    input.value = ""
+                    modifyOption(input)
+                }
+                if (isAChamp > 0) {
+                    input.value = champ[isAChamp].name
+                    modifyOption(input)
+                }
+
+                x[i].parentNode.removeChild(x[i])
+            }
+        }
     }
 
     document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
+        closeAllLists(e.target)
     });
 }
 
 //Mets à jour l'image du champion quand il est selectionné
 function modifyOption(element) {
+    console.log(element.value)
     champs[champs.findIndex(a => a.id === element.id)].name = element.value
 
     let img = document.querySelector(`#${element.id}-img`)
-    img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${element.value}_0.jpg`
+    if (element.value === "") {
+        img.src = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg'
+        img.classList.add('champback')
+        img.classList.remove('champActive')
+    } else {
+        img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${element.value}_0.jpg`
 
-    // Ajoutez la classe 'champActive' et supprimez la classe 'champback'
-    img.classList.remove('champback');
-    img.classList.add('champActive');
+        // Ajoutez la classe 'champActive' et supprimez la classe 'champback'
+        img.classList.remove('champback');
+        img.classList.add('champActive');
+    }
     
     doAllStats()
 }

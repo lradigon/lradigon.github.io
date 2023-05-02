@@ -40,12 +40,13 @@ function doAllStats() {
         return acc
     }, Array(champsInRole.length).fill().map(() => []))
 
-
     // Calcul les chances de gagner de chaque personnages dans la list
     let statsToShow = []
     for (let i = 0; i < champsInRole.length; i++) {
         const sum = statsList[i].reduce((acc, val) => acc + val, 0);
         const avg = sum / statsList[i].length;
+        if (isNaN(avg))
+            continue;
         statsToShow.push({name: champsInRole[i], average: avg})
     }
     statsToShow.sort(function(a, b) {return b.average - a.average})
@@ -62,6 +63,9 @@ function doAllStats() {
     document.querySelector('.res').innerHTML = "";
     document.querySelector('.best-champ-res').innerHTML = "";
 
+
+    if (statsToShow.length === 0)
+        return;
 
     let countChampFavorisIn = 0
 
