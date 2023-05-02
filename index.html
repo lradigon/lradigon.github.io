@@ -4,7 +4,9 @@
     <title>League of Win LOW</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Best way to determine which league champion is the best in what situation">
+    <meta name="description" content="Best way to determine which
+                                      league champion is the best
+                                      in what situation">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -21,7 +23,7 @@
                         <th><div><img id="a2-img" class="champback" alt="champ-background" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Kayn_0.jpg"/><form autocomplete="off"><div class="autocomplete"> <input id="a2" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
                         <th><div><img id="a3-img" class="champback" alt="champ-background" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Vladimir_0.jpg"/><form autocomplete="off"><div class="autocomplete"> <input id="a3" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
                         <th><div><img id="a4-img" class="champback" alt="champ-background" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Varus_0.jpg"/><form autocomplete="off"><div class="autocomplete"> <input id="a4" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
-                        <th><div><img id="a5-img" class="champback" alt="champ-background" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"/><form autocomplete="off"><div class="autocomplete"> <input id="a5" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div class="image-container"><div><img id="a5-img" class="champback" alt="champ-background" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"/><span class="you-text">YOU</span></div></th>
                     </tr>
 					    <tr>
 							<td colspan="5" style="text-align: center; font-size: 32px; font-weight: bold; color: white; padding-top: 6vh; padding-bottom: 3vh;">VS</td>
@@ -107,7 +109,7 @@
     autocomplete(document.getElementById("a2"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("a3"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("a4"), champ.map(function(obj) {return obj.name}));
-    autocomplete(document.getElementById("a5"), champ.map(function(obj) {return obj.name}));
+    //autocomplete(document.getElementById("a5"), champ.map(function(obj) {return obj.name}));
 
     autocomplete(document.getElementById("e1"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e2"), champ.map(function(obj) {return obj.name}));
