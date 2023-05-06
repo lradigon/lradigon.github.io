@@ -1,13 +1,38 @@
-function generateImageUrl(championName) {
-    const baseUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash";
-    const formattedName = championName.replace(/ /g, "_");
-    return `${baseUrl}/${formattedName}_0.jpg`;
+function resetStats() {
+    document.querySelector('#best-champ-res-none').style.display = "block"
+    document.querySelector('.best-champ-res').innerHTML = ""
+    document.querySelector('.res').innerHTML = champPlaceholders
+
+    const favs = [fav1, fav2, fav3]
+    for (let i = 0; i < favs.length; i++) {
+        if (favs[i].value !== "Default") {
+            const championImage2 = document.querySelector(`.imgc${i + 2}`);
+            championImage2.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${favs[i].value}.png`;
+            championImage2.alt = favs[i].value;
+        }
+    }
+    console.log(fav1.value, fav2.value, fav3.value)
 }
 
 // Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
 function doAllStats() {
     if (typeof currRole === "undefined")
         return;
+    
+    
+    // Pour enlever ou remettre les persos quand ya personne de pick
+    let nbChampPick = 10
+    for (let i = 0; i < champs.length; i++)
+        if (champs[i].name === '')
+            nbChampPick--
+    if (nbChampPick == 0) {
+        resetStats()
+        return
+    } else {
+        document.querySelector('#best-champ-res-none').style.display = "none"
+    }
+
+
 
     const role = currRole
     // List des personnages déjà pick
@@ -50,7 +75,6 @@ function doAllStats() {
         statsToShow.push({name: champsInRole[i], average: avg})
     }
     statsToShow.sort(function(a, b) {return b.average - a.average})
-
 
     // Get les champions favoris
     let favChamp = [];

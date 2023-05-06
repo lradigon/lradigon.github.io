@@ -83,20 +83,21 @@ function autocomplete(inp, arr) {
 
 //Mets à jour l'image du champion quand il est selectionné
 function modifyOption(element) {
-    console.log(element.value)
     champs[champs.findIndex(a => a.id === element.id)].name = element.value
 
-    let img = document.querySelector(`#${element.id}-img`)
+    const img = document.querySelector(`#${element.id}-img`)
+    const questionmark = document.querySelector(`#qm-${element.id}`)
+
     if (element.value === "") {
         img.src = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg'
-        img.classList.add('champback')
+        img.classList.add('champback2')
         img.classList.remove('champActive')
+        questionmark.style.display = "block"
     } else {
         img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${element.value}_0.jpg`
-
-        // Ajoutez la classe 'champActive' et supprimez la classe 'champback'
-        img.classList.remove('champback');
-        img.classList.add('champActive');
+        img.classList.remove('champback2')
+        img.classList.add('champActive')
+        questionmark.style.display = "none"
     }
     
     doAllStats()
