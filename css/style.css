@@ -312,4 +312,16 @@ input[type=submit] {
   z-index: 2;
   text-align: center;
 }
-  
+
+.frise {
+  margin-top: 50px;
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid #000;
+  height: 10vh;
+}
+
+image {
+  border-radius: 50%;
+}

@@ -149,7 +149,155 @@ function doAllStats() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    console.log(statsToShow)
+    const scatterplot = document.querySelector('#scatterplot')
+    scatterplot.innerHTML = ""
+
+    // Define data
+    const data = []
+    for (let i = 0; i < statsToShow.length; i++) {
+        const newImage = new Image()
+        newImage.src = champsIcones.find(icone => icone.name == statsToShow[i].name).img.src
+        data.push({winrate: statsToShow[i].average, pickrate: Math.floor(Math.random() * 101), name: newImage.src})
+    }
+    
+    // set the dimensions and margins of the graph
+    const margin = {top: 10, right: 30, bottom: 30, left: 60}
+    const height = 500 - margin.top - margin.bottom
+
+    // append the svg object to the body of the page
+    const svg = d3.select("#scatterplot")
+                  .append("svg")
+                  .attr("width", "100%")
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    
+    // Add X axis label
+    svg.append("text")
+       .attr("text-anchor", "middle")
+       .attr("x", scatterplot.getBoundingClientRect().width / 2)
+       .attr("y", height + margin.top + 25)
+       .text("Winrate");
+
+    // Add Y axis label
+    svg.append("text")
+       .attr("text-anchor", "middle")
+       .attr("transform", "rotate(-90)")
+       .attr("x", -height / 2)
+       .attr("y", -margin.left + 20)
+       .text("Nombre de games");
+
+
+    // Add X axis
+    const x = d3.scaleLinear()
+                .domain([0, 100])
+                .range([ 0,  scatterplot.getBoundingClientRect().width]);
+
+    svg.append("g")
+       .attr("transform", `translate(0, ${height})`)
+       .call(d3.axisBottom(x));
+
+
+    // Add Y axis
+    const y = d3.scaleLinear()
+                .domain([0, 100])
+                .range([ height, 0]);
+
+    svg.append("g")
+       .call(d3.axisLeft(y));
+
+
+    // Add dots
+    //svg.append('g')
+    //   .selectAll("dot")
+    //   .data(data)
+    //   .join("circle")
+    //   .attr("cx", function (d) { return x(d.winrate); } )
+    //   .attr("cy", function (d) { return y(d.pickrate); } )
+    //   .attr("r", 1.5)
+    //   .style("fill", "#69b3a2")
+    // Add dots
+    const dotGroup = svg.append('g')
+                        .selectAll("image")
+                        .data(data)
+                        .join("image")
+                        .attr("x", function (d) { return x(d.winrate) - 6; } )
+                        .attr("y", function (d) { return y(d.pickrate) - 6; } )
+                        .attr("width", 30)
+                        .attr("height", 30)
+                        .attr("xlink:href", function(d) { return d.name; });
+
+
+    
+
     // FRISE
+
+    /*
+    function checkOverlap(img1, img2) {
+        const rect1 = img1.getBoundingClientRect();
+        const rect2 = img2.getBoundingClientRect();
+        
+        return (
+          rect1.left < rect2.right &&
+          rect1.right > rect2.left &&
+          rect1.top < rect2.bottom &&
+          rect1.bottom > rect2.top
+        );
+      }
+      
+
+    const frise = document.querySelector('.frise')
+    const friseImages = []
+
+    for (let i = statsToShow.length - 1; i >= 0; i--) {
+        const newImage = new Image()
+        newImage.src = champsIcones.find(icone => icone.name == statsToShow[i].name).img.src
+        newImage.style.left       = `${statsToShow[i].average}%`
+        newImage.style.top        = 0
+        newImage.style.position   = 'absolute'
+        newImage.style.transition = 'transition: all 0.2s ease-in-out'
+        newImage.width = 50
+
+        frise.append(newImage)
+        for (let j = 0; j < friseImages.length; j++) {
+            if (checkOverlap(newImage, friseImages[j])) {
+                newImage.style.top = `${parseInt(newImage.style.top) + newImage.getBoundingClientRect().height}px`
+                j = 0
+            }
+        }
+
+        friseImages.push(newImage)
+    }
+
+    let maxTop    = 0
+    let maxHeight = 0
+    for (let i = 0; i < friseImages.length; i++) {
+        if (friseImages[i].getBoundingClientRect().top > maxTop) {
+            maxTop    = friseImages[i].getBoundingClientRect().top
+            maxHeight = friseImages[i].getBoundingClientRect().height
+        }
+    }
+    
+    frise.style.height = `${(maxTop + maxHeight) - frise.getBoundingClientRect().top}px` 
+
+    */
+
+
+
 
     /*
     const championsContainer = document.querySelector('.champions');
