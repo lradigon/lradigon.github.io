@@ -156,10 +156,16 @@ function doAllStats() {
 
 
 
-
-
-
-
+    function findMeanNbGames(champName, alliesChampsPick, ennemiesChampsPick) {
+        console.log(champName)
+        let acc = 0;
+        for (let i = 0; i< alliesChampsPick.length; i++)
+            acc += nbGames[champName][alliesChampsPick[i]]
+        for (let i = 0; i< ennemiesChampsPick.length; i++)
+            acc += nbGames[champName][ennemiesChampsPick[i]]
+        
+        return acc / (alliesChampsPick.length + ennemiesChampsPick.length)
+    }
 
     console.log(statsToShow)
     const scatterplot = document.querySelector('#scatterplot')
@@ -169,8 +175,9 @@ function doAllStats() {
     const data = []
     for (let i = 0; i < statsToShow.length; i++) {
         const newImage = new Image()
+        //findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick)
         newImage.src = champsIcones.find(icone => icone.name == statsToShow[i].name).img.src
-        data.push({winrate: statsToShow[i].average, pickrate: Math.floor(Math.random() * 101), name: newImage.src})
+        data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick), name: newImage.src})
     }
     
     // set the dimensions and margins of the graph
@@ -214,7 +221,7 @@ function doAllStats() {
 
     // Add Y axis
     const y = d3.scaleLinear()
-                .domain([0, 100])
+                .domain([data.reduce((min, obj) => obj.pickrate < min ? obj.pickrate : min, data[0].pickrate), data.reduce((max, obj) => obj.pickrate > max ? obj.pickrate : max, data[0].pickrate)])
                 .range([ height, 0]);
 
     svg.append("g")
