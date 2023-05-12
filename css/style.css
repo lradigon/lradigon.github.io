@@ -325,3 +325,52 @@ input[type=submit] {
 image {
   border-radius: 50%;
 }
+
+
+
+
+
+
+
+
+
+/* this is a _demo_ container. remember the importance of relative and absolute positioning */
+.tooltip-container {
+  position: relative;
+  display: flex;
+  place-content: center;
+}
+
+/* styling of the tooltip display */
+p#tooltip-text {
+  width: fit-content;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  background: #00732c;
+  padding: 8px;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 2px;
+  animation: fadeIn 0.6s;
+}
+
+/* optional styling to add a "wedge" to the tooltip */
+p#tooltip-text:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border: 8px solid transparent;
+  border-top: 8px solid #00732c;
+}
+
+@keyframes fadeIn {
+from {
+ opacity: 0;
+}
+to {
+ opacity: 1;
+}
+}

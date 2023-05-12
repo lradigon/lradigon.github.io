@@ -155,9 +155,8 @@ function doAllStats() {
 
 
 
-
+    // Trouve la moyenne du nombre de game
     function findMeanNbGames(champName, alliesChampsPick, ennemiesChampsPick) {
-        console.log(champName)
         let acc = 0;
         for (let i = 0; i< alliesChampsPick.length; i++)
             acc += nbGames[champName][alliesChampsPick[i]]
@@ -167,19 +166,24 @@ function doAllStats() {
         return acc / (alliesChampsPick.length + ennemiesChampsPick.length)
     }
 
-    console.log(statsToShow)
+    // Réinistialise le nuage de point à 0
     const scatterplot = document.querySelector('#scatterplot')
     scatterplot.innerHTML = ""
 
-    // Define data
+    // Créé les données à mettre dans le nuage de points
     const data = []
     for (let i = 0; i < statsToShow.length; i++) {
         const newImage = new Image()
-        //findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick)
         newImage.src = champsIcones.find(icone => icone.name == statsToShow[i].name).img.src
-        data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick), name: newImage.src})
+        data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick), name: newImage.src, realName: statsToShow[i].name})
     }
-    
+
+
+
+    ///
+    /// Création du graphique
+    ///
+
     // set the dimensions and margins of the graph
     const margin = {top: 10, right: 30, bottom: 30, left: 60}
     const height = 500 - margin.top - margin.bottom
@@ -227,16 +231,6 @@ function doAllStats() {
     svg.append("g")
        .call(d3.axisLeft(y));
 
-
-    // Add dots
-    //svg.append('g')
-    //   .selectAll("dot")
-    //   .data(data)
-    //   .join("circle")
-    //   .attr("cx", function (d) { return x(d.winrate); } )
-    //   .attr("cy", function (d) { return y(d.pickrate); } )
-    //   .attr("r", 1.5)
-    //   .style("fill", "#69b3a2")
     // Add dots
     const dotGroup = svg.append('g')
                         .selectAll("image")
@@ -246,93 +240,36 @@ function doAllStats() {
                         .attr("y", function (d) { return y(d.pickrate) - 6; } )
                         .attr("width", 30)
                         .attr("height", 30)
-                        .attr("xlink:href", function(d) { return d.name; });
+                        .attr("xlink:href", function(d) { return d.name; })
+                        .attr("class", "imageScatterplot");
 
 
     
+    const imagesScatterplot = document.querySelectorAll('.imageScatterplot')
+    for (let i = 0; i < imagesScatterplot.length; i++) {
+        const scatterplotHover = document.querySelector('#scatterplotHover')
+        imagesScatterplot[i].addEventListener('mouseover', function(event) {
+            let p = document.createElement('p')
+            p.id = `tooltip-text`
+            p.className = `tooltip-text-${i}`
+            p.innerHTML = `Champion: ${data[i].realName}<br>Games: ${data[i].pickrate}<br>Winrate: ${data[i].winrate.toFixed(3)}%`
 
-    // FRISE
+            const rect = imagesScatterplot[i].getBoundingClientRect()
 
-    /*
-    function checkOverlap(img1, img2) {
-        const rect1 = img1.getBoundingClientRect();
-        const rect2 = img2.getBoundingClientRect();
-        
-        return (
-          rect1.left < rect2.right &&
-          rect1.right > rect2.left &&
-          rect1.top < rect2.bottom &&
-          rect1.bottom > rect2.top
-        );
-      }
-      
+            const scrollX = window.scrollX || window.pageXOffset;
+            const scrollY = window.scrollY || window.pageYOffset;
 
-    const frise = document.querySelector('.frise')
-    const friseImages = []
+            scatterplotHover.appendChild(p)
 
-    for (let i = statsToShow.length - 1; i >= 0; i--) {
-        const newImage = new Image()
-        newImage.src = champsIcones.find(icone => icone.name == statsToShow[i].name).img.src
-        newImage.style.left       = `${statsToShow[i].average}%`
-        newImage.style.top        = 0
-        newImage.style.position   = 'absolute'
-        newImage.style.transition = 'transition: all 0.2s ease-in-out'
-        newImage.width = 50
+            const pRect = p.getBoundingClientRect()
 
-        frise.append(newImage)
-        for (let j = 0; j < friseImages.length; j++) {
-            if (checkOverlap(newImage, friseImages[j])) {
-                newImage.style.top = `${parseInt(newImage.style.top) + newImage.getBoundingClientRect().height}px`
-                j = 0
-            }
-        }
+            p.style.top = `${(rect.top - rect.height - pRect.height) + scrollY}px`
+            p.style.left = `${(rect.left - (pRect.width / 2) + (rect.width / 2)) + scrollX}px`
+        })
 
-        friseImages.push(newImage)
+        imagesScatterplot[i].addEventListener('mouseleave', () => {
+            document.querySelector(`.tooltip-text-${i}`).remove()
+        })
     }
-
-    let maxTop    = 0
-    let maxHeight = 0
-    for (let i = 0; i < friseImages.length; i++) {
-        if (friseImages[i].getBoundingClientRect().top > maxTop) {
-            maxTop    = friseImages[i].getBoundingClientRect().top
-            maxHeight = friseImages[i].getBoundingClientRect().height
-        }
-    }
-    
-    frise.style.height = `${(maxTop + maxHeight) - frise.getBoundingClientRect().top}px` 
-
-    */
-
-
-
-
-    /*
-    const championsContainer = document.querySelector('.champions');
-
-    statsToShow.forEach(champion => {
-        const championDiv = document.createElement('div');
-        championDiv.className = 'champion';
-
-        const img = document.createElement('img');
-        img.src = generateImageUrl(champion.name);
-        img.alt = champion.name;
-
-        championDiv.appendChild(img);
-
-        championsContainer.appendChild(championDiv);
-
-        championDiv.style.left = `calc(${champion.winrate}% * (100% - 50px) - 20px)`;
-    });
-    // Créez une échelle de 0 à 100 en bas de la frise
-    const scaleContainer = document.createElement('div');
-    scaleContainer.className = 'scale';
-
-    for (let i = 0; i <= 100; i += 10) {
-        const scaleMark = document.createElement('span');
-        scaleMark.textContent = i;
-        scaleContainer.appendChild(scaleMark);
-    }
-    document.querySelector('.frise').appendChild(scaleContainer);
-    */
 }
 
