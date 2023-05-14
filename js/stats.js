@@ -268,6 +268,7 @@ function doAllStats() {
         })
 
         imagesScatterplot[i].addEventListener('mouseleave', () => {
+            //console.log(document.querySelector(`.tooltip-text-${i}`))
             document.querySelector(`.tooltip-text-${i}`).remove()
         })
     }

@@ -10,6 +10,7 @@ function autocomplete(inp, arr) {
         a.setAttribute("id", this.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
+		let suggestionsCount = 0; // Ajouter un compteur de suggestions
         for (i = 0; i < arr.length; i++) {
             if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && !isChampSelected(arr[i])) {
                 b = document.createElement("DIV");
@@ -23,8 +24,14 @@ function autocomplete(inp, arr) {
                     modifyOption(inp)
                 });
                 a.appendChild(b);
+				suggestionsCount++; // Incrémenter le compteur de suggestions
+				singleSuggestion = b;
             }
         }
+		    // Si une seule suggestion est disponible et qu'elle est déjà visible, déclenchez l'événement de clic pour la sélectionner automatiquement
+    if (suggestionsCount === 1) {
+      singleSuggestion.click();
+    }
     });
 
     inp.addEventListener("keydown", function(e) {

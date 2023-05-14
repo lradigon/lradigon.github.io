@@ -1,4 +1,12 @@
+window.currRole = null; // variable globale pour stocker le rôle actuel
+
 function selectRole(role, element) {
+	
+	    // ne rien faire si le rôle sélectionné est le même que le rôle actuel
+    if (role === currRole) {
+        return;
+    }
+
     // Désélectionner toutes les images
     const images = document.getElementsByClassName("role-image");
     for (let i = 0; i < images.length; i++) {
@@ -17,6 +25,7 @@ function selectRole(role, element) {
 
     // Appeler la fonction doAllStats pour mettre à jour les statistiques et l'affichage
     doAllStats();
+	applyFormat(role)
 }
 
 function selectRole2(role, element) {
@@ -42,6 +51,7 @@ function selectRole2(role, element) {
 	appendsOptionsToId('fav1', createOptionsChamps("Default", role));
     appendsOptionsToId('fav2', createOptionsChamps("Default", role));
     appendsOptionsToId('fav3', createOptionsChamps("Default", role));
+	applyFormat(role)
 }
 
 
@@ -79,3 +89,34 @@ function appendsOptionsToId(id, options) {
         element.appendChild(options[i]);
     }
 }
+
+function applyFormat(role) {
+    const imageIds = ['a1-img', 'a2-img', 'a3-img', 'a4-img', 'a5-img'];
+    const textIds = ['qm-a1', 'qm-a2', 'qm-a3', 'qm-a4', 'qm-a5'];
+    const inputIds = ['a1', 'a2', 'a3', 'a4', 'a5'];
+    const roleOrder = ['Top', 'Jungle', 'Mid', 'ADC', 'Support'];
+
+    // Réinitialiser tous les éléments
+    for (let i = 0; i < textIds.length; i++) {
+        const textElement = document.getElementById(textIds[i]);
+        textElement.classList.remove('you-text');
+        textElement.textContent = '?';
+
+        const inputElement = document.getElementById(inputIds[i]);
+        inputElement.parentElement.parentElement.style.display = 'block';
+    }
+
+    // Appliquer le format souhaité à l'élément correspondant au rôle sélectionné
+    const index = roleOrder.indexOf(role);
+    if (index >= 0 && index < textIds.length) {
+        const textElement = document.getElementById(textIds[index]);
+        textElement.classList.add('you-text');
+        textElement.textContent = 'YOU';
+
+        const inputElement = document.getElementById(inputIds[index]);
+		console.log('selectedInputElement:', inputElement);
+        inputElement.parentElement.parentElement.style.display = 'none';
+    }
+}
+
+

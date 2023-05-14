@@ -19,11 +19,11 @@
             <div style="width: 50%;">
                 <table>
                     <tr>
-                        <th><div class="image-container"><img id="a1-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"  /><span class="prepick" id="qm-a1">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a1" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></div></th>
-                        <th><div class="image-container"><img id="a2-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Kayn_0.jpg"    /><span class="prepick" id="qm-a2">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a2" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></div></th>
-                        <th><div class="image-container"><img id="a3-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Vladimir_0.jpg"/><span class="prepick" id="qm-a3">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a3" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></div></th>
-                        <th><div class="image-container"><img id="a4-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Varus_0.jpg"   /><span class="prepick" id="qm-a4">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a4" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></div></th>
-                        <th><div class="image-container"><img id="a5-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"    /><span class="you-text"        >YOU</span></div></th>
+                        <th><div class="image-container"><img id="a1-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"  /><span class="prepick" id="qm-a1">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a1" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div class="image-container"><img id="a2-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Kayn_0.jpg"    /><span class="prepick" id="qm-a2">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a2" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div class="image-container"><img id="a3-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Vladimir_0.jpg"/><span class="prepick" id="qm-a3">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a3" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div class="image-container"><img id="a4-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Varus_0.jpg"   /><span class="prepick" id="qm-a4">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a4" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div class="image-container"><img id="a5-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"   /><span class="prepick" id="qm-a5">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a5" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
                     </tr>
                     <tr>
                         <td colspan="5" style="text-align: center; font-size: 32px; font-weight: bold; color: white; padding-top: 3vh; padding-bottom: 3vh;">VS</td>
@@ -36,7 +36,7 @@
                         <th><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"> <input id="e5" class="ennemie champInputs" type="text" placeholder="Champions"></div></form></div><div class="image-container"><img id="e5-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Maokai_0.jpg" /><span class="prepick" id="qm-e5">?</span></div></th>
                         
                     </tr>
-
+ 
       
                 </table>
             </div>
@@ -136,8 +136,8 @@
         </div>
     </main>
     <div><h3>Toutes les statistiques</h3></div>
-    <div style="width: 80%; margin: 0 auto; color: white; fill: white" id="scatterplot">
-    </div>
+    <div style="width: 80%; margin: 0 auto; color: white; fill: white" id="scatterplot"></div>
+    <div id="scatterplotHover"></div>
 </body>
 
 
@@ -196,9 +196,9 @@
     autocomplete(document.getElementById("e4"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e5"), champ.map(function(obj) {return obj.name}));
 
-    fav1.addEventListener('change', doAllStats);
-    fav2.addEventListener('change', doAllStats);
-    fav3.addEventListener('change', doAllStats);
+    fav1.addEventListener('change', changeImageChampFav);
+    fav2.addEventListener('change', changeImageChampFav);
+    fav3.addEventListener('change', changeImageChampFav);
 
     let champselects = document.getElementsByClassName("champselect")
     for (let i = 0; i < champselects.length; i++) {
