@@ -1,8 +1,17 @@
+
+
 function autocomplete(inp, arr) {
     var currentFocus;
+	var val = '';
 
+	
+	
+	
     inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
+
+        var a, b, i = this.value;
+		val = this.value;
+		
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1;
@@ -28,12 +37,58 @@ function autocomplete(inp, arr) {
 				singleSuggestion = b;
             }
         }
-		    // Si une seule suggestion est disponible et qu'elle est déjà visible, déclenchez l'événement de clic pour la sélectionner automatiquement
-    if (suggestionsCount === 1) {
-      singleSuggestion.click();
-    }
+		// Si une seule suggestion est disponible et qu'elle est déjà visible, 
+		// déclenchez l'événement de clic pour la sélectionner automatiquement
+		if (suggestionsCount === 1) {
+		  singleSuggestion.click();
+
+		  // Obtenir le numéro du champ actuel
+		  let currentNum = parseInt(inp.id.slice(1));
+		  
+		  // Obtenir le type du champ actuel ('a' ou 'e')
+		  let currentType = inp.id.slice(0, 1);
+
+		  let nextChamp;
+
+		  do {
+			// Si le type actuel est 'a', passez à 'e'
+			if (currentType === 'a') {
+			  currentType = 'e';
+			}
+			// Sinon, passez au numéro de champ suivant et revenez à 'a'
+			else {
+			  currentType = 'a';
+			  currentNum++;
+			}
+
+			// Si nous avons dépassé '5', il n'y a pas de champ suivant
+			if (currentNum > 5) {
+			  return;
+			}
+
+			// Obtenir le champ suivant
+			nextChamp = document.getElementById(currentType + currentNum.toString());
+
+		  // Continuez à chercher si le champ suivant n'existe pas ou est déjà rempli
+		  } while (!nextChamp || (nextChamp && nextChamp.value));
+
+		  // Déplacer le focus vers le champ suivant
+		  if (nextChamp) {
+			nextChamp.focus();
+			let currentType2 = inp.id.slice(0, 1);
+			console.log(currentType2)
+			console.log(currentType)
+			if (currentType2 === currentType){
+				console.log('egal')
+				currentNum++;
+				nextChamp = document.getElementById(currentType + currentNum.toString());
+				nextChamp.focus();
+		  }
+		  }
+		}
     });
 
+//appuie sur retour
     inp.addEventListener("keydown", function(e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
@@ -48,6 +103,15 @@ function autocomplete(inp, arr) {
             if (currentFocus > -1)
                 if (x) x[currentFocus].click();
         }
+	// 8 is the keyCode for the backspace key
+    if (e.keyCode == 8) {
+		backspacePressed = true;
+		inp.value = val;
+		val = val.slice(0, -1); 
+		console.log(val);
+	    } else {
+        backspacePressed = false;
+    }
     });
 
     function addActive(x) {

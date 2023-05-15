@@ -11,35 +11,9 @@ function resetStats() {
             championImage2.alt = favs[i].value;
         }
     }
-    console.log(fav1.value, fav2.value, fav3.value)
 }
 
-// Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
-function doAllStats() {
-    if (typeof currRole === "undefined")
-        return;
-    
-    
-    // Pour enlever ou remettre les persos quand ya personne de pick
-    let nbChampPick = 10
-    for (let i = 0; i < champs.length; i++)
-        if (champs[i].name === '')
-            nbChampPick--
-    if (nbChampPick == 0) {
-        resetStats()
-        return
-    } else {
-        document.querySelector('#best-champ-res-none').style.display = "none"
-    }
-
-
-
-    const role = currRole
-    // List des personnages déjà pick
-    const alliesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'a').map(champ => champ.name)
-    const ennemiesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'e').map(champ => champ.name)
-    // List des personnages disponibles pour le role
-    const champsInRole = (champ.filter(item => item.role === role)).map(item => item.name)
+function computeStats(alliesChampsPick, ennemiesChampsPick, champsInRole) {
     // List des stats avec et contre
     const statsList = champsInRole.reduce((acc, champInRole, i) => {
         const allyChamps = Object.values(avec).find((item) => item.Avec === champInRole) || {};
@@ -75,6 +49,55 @@ function doAllStats() {
         statsToShow.push({name: champsInRole[i], average: avg})
     }
     statsToShow.sort(function(a, b) {return b.average - a.average})
+
+    return statsToShow
+}
+
+function computeStatsBlind(champsInRole) {
+    // List des personnages disponibles pour le role
+    const statsToShow = []
+    for (let i = 0; i < contre.length; i++) {
+        if (!champsInRole.includes(contre[i].Contre))
+            continue;
+        let acc = 0
+        let itt = 0
+        for (const key in contre[i]) {
+            if (contre[i][key] !== "" && !isNaN(parseFloat(contre[i][key])))
+                acc += parseFloat(contre[i][key])
+            itt++
+        }
+        statsToShow.push({name: contre[i].Contre, average: acc / itt})
+    }
+    statsToShow.sort(function(a, b) {return b.average - a.average})
+    return statsToShow
+}
+
+// Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
+function doAllStats() {
+    if (typeof currRole === "undefined")
+        return;
+    
+    
+    // Pour enlever ou remettre les persos quand ya personne de pick
+    let nbChampPick = 10
+    for (let i = 0; i < champs.length; i++)
+        if (champs[i].name === '')
+            nbChampPick--
+
+
+    document.querySelector('#best-champ-res-none').style.display = "none"
+
+
+    const alliesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'a').map(champ => champ.name)
+    const ennemiesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'e').map(champ => champ.name)
+    const champsInRole = (champ.filter(item => item.role === currRole)).map(item => item.name)
+    let statsToShow = []
+    if (nbChampPick !== 0)
+        statsToShow = computeStats(alliesChampsPick, ennemiesChampsPick, champsInRole)
+    else
+        statsToShow = computeStatsBlind(champsInRole)
+
+    console.log(statsToShow)
 
     // Get les champions favoris
     let favChamp = [];
@@ -156,14 +179,24 @@ function doAllStats() {
 
 
     // Trouve la moyenne du nombre de game
-    function findMeanNbGames(champName, alliesChampsPick, ennemiesChampsPick) {
+    function findMeanNbGames(champName, alliesChampsPick, ennemiesChampsPick, champsInRole) {
         let acc = 0;
-        for (let i = 0; i< alliesChampsPick.length; i++)
-            acc += nbGames[champName][alliesChampsPick[i]]
-        for (let i = 0; i< ennemiesChampsPick.length; i++)
-            acc += nbGames[champName][ennemiesChampsPick[i]]
-        
-        return acc / (alliesChampsPick.length + ennemiesChampsPick.length)
+        console.log(alliesChampsPick)
+        console.log(champsInRole)
+        if (alliesChampsPick.length == 0 && ennemiesChampsPick.length == 0) {
+            let i = 0
+            for (; i < champsInRole.length; i++) {
+                if (nbGames[champName][champsInRole[i]] != "")
+                    acc += nbGames[champName][champsInRole[i]]
+            }
+            return acc / i
+        } else {
+            for (let i = 0; i < alliesChampsPick.length; i++)
+                acc += nbGames[champName][alliesChampsPick[i]]
+            for (let i = 0; i < ennemiesChampsPick.length; i++)
+                acc += nbGames[champName][ennemiesChampsPick[i]]
+            return acc / (alliesChampsPick.length + ennemiesChampsPick.length)
+        }
     }
 
     // Réinistialise le nuage de point à 0
@@ -175,7 +208,7 @@ function doAllStats() {
     for (let i = 0; i < statsToShow.length; i++) {
         const newImage = new Image()
         newImage.src = champsIcones.find(icone => icone.name == statsToShow[i].name).img.src
-        data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick), name: newImage.src, realName: statsToShow[i].name})
+        data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick, champsInRole), name: newImage.src, realName: statsToShow[i].name})
     }
 
 
