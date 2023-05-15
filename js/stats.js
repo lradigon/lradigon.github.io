@@ -216,10 +216,9 @@ function doAllStats() {
         let acc = 0;
         if (alliesChampsPick.length == 0 && ennemiesChampsPick.length == 0) {
             let i = 0
-            for (; i < champsInRole.length; i++) {
-                if (nbGames[champName][champsInRole[i]] != "")
+            for (; i < champsInRole.length; i++)
+                if (nbGames[champName][champsInRole[i]] != "" && champsInRole[i] != "Gwen")
                     acc += nbGames[champName][champsInRole[i]]
-            }
             return acc / i
         } else {
             for (let i = 0; i < alliesChampsPick.length; i++)
@@ -242,7 +241,7 @@ function doAllStats() {
         data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick, champsInRole), name: newImage.src, realName: statsToShow[i].name})
     }
 
-
+    console.log(data)
 
     ///
     /// Création du graphique
@@ -252,10 +251,11 @@ function doAllStats() {
     const margin = {top: 10, right: 30, bottom: 30, left: 60}
     const height = 500 - margin.top - margin.bottom
 
-    const lowestValue  = data.reduce((min, current) => current.winrate < min.winrate ? current : min, data[0]).winrate
-    const highestValue = data.reduce((min, current) => current.winrate > min.winrate ? current : min, data[0]).winrate
+    const lowestWinrate   = data.reduce((min, obj) => obj.winrate < min.winrate ? obj : min, data[0]).winrate
+    const highestWinrate  = data.reduce((min, obj) => obj.winrate > min.winrate ? obj : min, data[0]).winrate
 
-    console.log(lowestValue, highestValue)
+    const lowestPickrate  = data.reduce((min, obj) => obj.pickrate < min ? obj.pickrate : min, data[0].pickrate)
+    const HighestPickrate = data.reduce((min, obj) => obj.pickrate > min ? obj.pickrate : min, data[0].pickrate)
 
     // append the svg object to the body of the page
     const svg = d3.select("#scatterplot")
@@ -284,7 +284,7 @@ function doAllStats() {
 
     // Add X axis
     const x = d3.scaleLinear()
-                .domain([lowestValue - (lowestValue * (10 / 100)), highestValue + (highestValue * (10 / 100))])
+                .domain([lowestWinrate - (lowestWinrate * (10 / 100)), highestWinrate + (highestWinrate * (10 / 100))])
                 .range([ 0,  scatterplot.getBoundingClientRect().width]);
 
     svg.append("g")
@@ -294,7 +294,7 @@ function doAllStats() {
 
     // Add Y axis
     const y = d3.scaleLinear()
-                .domain([data.reduce((min, obj) => obj.pickrate < min ? obj.pickrate : min, data[0].pickrate), data.reduce((max, obj) => obj.pickrate > max ? obj.pickrate : max, data[0].pickrate)])
+                .domain([lowestPickrate - (lowestPickrate * (10 / 100)), HighestPickrate + (HighestPickrate * (10 / 100))])
                 .range([ height, 0]);
 
     svg.append("g")
