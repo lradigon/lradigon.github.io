@@ -53,20 +53,50 @@ function computeStats(alliesChampsPick, ennemiesChampsPick, champsInRole) {
     return statsToShow
 }
 
+function findQ1Q2AllStats(champsInRole) {
+    const res = []
+
+    for (let i = 0; i < contre.length; i++) {
+        //if (!champsInRole.includes(contre[i].Contre))
+            //continue
+        for (const key in contre[i]) {
+            if (isNaN(parseFloat(contre[i][key])))
+                continue;
+            res.push(parseFloat(contre[i][key]))
+        }
+    }
+    res.sort((a, b) => a - b)
+    
+    const q1Index = Math.ceil(res.length * 0.1) - 1
+    const q2Index = Math.ceil(res.length * 0.2) - 1
+
+    return [res[q1Index], res[q2Index]]
+}
+
 function computeStatsBlind(champsInRole) {
     // List des personnages disponibles pour le role
     const statsToShow = []
+    const q1q2 = findQ1Q2AllStats(champsInRole)
+    console.log(q1q2)
+    
     for (let i = 0; i < contre.length; i++) {
         if (!champsInRole.includes(contre[i].Contre))
             continue;
         let acc = 0
         let itt = 0
+        let toLowAverage = 0
         for (const key in contre[i]) {
-            if (contre[i][key] !== "" && !isNaN(parseFloat(contre[i][key])))
-                acc += parseFloat(contre[i][key])
+            if (contre[i][key] !== "" && !isNaN(parseFloat(contre[i][key]))) {
+                const value = parseFloat(contre[i][key])
+                acc += value
+                if (value <= q1q2[0])
+                    toLowAverage += 0.2
+                if (value >  q1q2[0] && value <= q1q2[1])
+                    toLowAverage += 0.1
+            }
             itt++
         }
-        statsToShow.push({name: contre[i].Contre, average: acc / itt})
+        statsToShow.push({name: contre[i].Contre, average: (acc / itt) - toLowAverage})
     }
     statsToShow.sort(function(a, b) {return b.average - a.average})
     return statsToShow
@@ -76,7 +106,6 @@ function computeStatsBlind(champsInRole) {
 function doAllStats() {
     if (typeof currRole === "undefined")
         return;
-    
     
     // Pour enlever ou remettre les persos quand ya personne de pick
     let nbChampPick = 10
@@ -181,8 +210,6 @@ function doAllStats() {
     // Trouve la moyenne du nombre de game
     function findMeanNbGames(champName, alliesChampsPick, ennemiesChampsPick, champsInRole) {
         let acc = 0;
-        console.log(alliesChampsPick)
-        console.log(champsInRole)
         if (alliesChampsPick.length == 0 && ennemiesChampsPick.length == 0) {
             let i = 0
             for (; i < champsInRole.length; i++) {
