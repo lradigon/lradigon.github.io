@@ -98,6 +98,10 @@ function computeStatsBlind(champsInRole) {
         }
         statsToShow.push({name: contre[i].Contre, average: (acc / itt) - toLowAverage})
     }
+
+    const mean = (statsToShow.reduce((acc, obj) => acc + obj.average, 0)) / statsToShow.length
+    for (let i = 0; i < statsToShow.length; i++) 
+        statsToShow[i].average = (50 / mean) * statsToShow[i].average
     statsToShow.sort(function(a, b) {return b.average - a.average})
     return statsToShow
 }
@@ -248,6 +252,11 @@ function doAllStats() {
     const margin = {top: 10, right: 30, bottom: 30, left: 60}
     const height = 500 - margin.top - margin.bottom
 
+    const lowestValue  = data.reduce((min, current) => current.winrate < min.winrate ? current : min, data[0]).winrate
+    const highestValue = data.reduce((min, current) => current.winrate > min.winrate ? current : min, data[0]).winrate
+
+    console.log(lowestValue, highestValue)
+
     // append the svg object to the body of the page
     const svg = d3.select("#scatterplot")
                   .append("svg")
@@ -275,7 +284,7 @@ function doAllStats() {
 
     // Add X axis
     const x = d3.scaleLinear()
-                .domain([0, 100])
+                .domain([lowestValue - (lowestValue * (10 / 100)), highestValue + (highestValue * (10 / 100))])
                 .range([ 0,  scatterplot.getBoundingClientRect().width]);
 
     svg.append("g")
