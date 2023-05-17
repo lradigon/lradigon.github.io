@@ -106,32 +106,8 @@ function computeStatsBlind(champsInRole) {
     return statsToShow
 }
 
-// Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
-function doAllStats() {
-    if (typeof currRole === "undefined")
-        return;
-    
-    // Pour enlever ou remettre les persos quand ya personne de pick
-    let nbChampPick = 10
-    for (let i = 0; i < champs.length; i++)
-        if (champs[i].name === '')
-            nbChampPick--
-
-
-    document.querySelector('#best-champ-res-none').style.display = "none"
-
-
-    const alliesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'a').map(champ => champ.name)
-    const ennemiesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'e').map(champ => champ.name)
-    const champsInRole = (champ.filter(item => item.role === currRole)).map(item => item.name)
-    let statsToShow = []
-    if (nbChampPick !== 0)
-        statsToShow = computeStats(alliesChampsPick, ennemiesChampsPick, champsInRole)
-    else
-        statsToShow = computeStatsBlind(champsInRole)
-
-    console.log(statsToShow)
-
+// Créer les bars de stat avec les meilleurs persos / persos favoris
+function createStatBars(statsToShow) {
     // Get les champions favoris
     let favChamp = [];
     favChamp.push(document.querySelector('#fav1').value);
@@ -202,14 +178,9 @@ function doAllStats() {
 
         return progressBar
     }
+}
 
-
-
-
-
-
-
-
+function createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, champsInRole) {
 
     // Trouve la moyenne du nombre de game
     function findMeanNbGames(champName, alliesChampsPick, ennemiesChampsPick, champsInRole) {
@@ -241,7 +212,6 @@ function doAllStats() {
         data.push({winrate: statsToShow[i].average, pickrate: findMeanNbGames(statsToShow[i].name, alliesChampsPick, ennemiesChampsPick, champsInRole), name: newImage.src, realName: statsToShow[i].name})
     }
 
-    console.log(data)
 
     ///
     /// Création du graphique
@@ -312,8 +282,10 @@ function doAllStats() {
                         .attr("xlink:href", function(d) { return d.name; })
                         .attr("class", "imageScatterplot");
 
-
     
+    //
+    //  Scatterplot hover
+    //
     const imagesScatterplot = document.querySelectorAll('.imageScatterplot')
     for (let i = 0; i < imagesScatterplot.length; i++) {
         const scatterplotHover = document.querySelector('#scatterplotHover')
@@ -341,5 +313,92 @@ function doAllStats() {
             document.querySelector(`.tooltip-text-${i}`).remove()
         })
     }
+}
+
+function createMatchDraftPlot(alliesChampsPick, ennemiesChampsPick) {
+    let res = []
+    const champsPick = []
+    for (let i = 0; i < champs.length; i++)
+        if (champs[i].name !== "")
+            champsPick.push(champs[i])
+
+
+    for (let i = 0; i < champsPick.length; i++) {
+        let nbMatch = 0
+        let nbWins  = 0
+        let nbLoses = 0
+
+        for (let j = 0; j < matchDraft.length; j++) {
+            const alliesMatch = []
+            for (let k = 0; k < 5; k++) {
+                alliesMatch.push(matchDraft[j][k])
+            }
+
+            const ennemiesMatch = []
+            for (let k = 5; k < 10; k++) {
+                ennemiesMatch.push(matchDraft[j][k])
+            }
+
+
+            let isValidMatch = 0
+            for (let k = 0; k < (i + 1); k++) {
+                if (champsPick[k].id[0] == 'a') {
+                    for (let h = 0; h < alliesMatch.length; h++) {
+                        if (champsPick[k].name === alliesMatch[h])
+                            isValidMatch++
+                    }
+                } else {
+                    for (let h = 0; h < ennemiesMatch.length; h++) {
+                        if (champsPick[k].name === ennemiesMatch[h])
+                            isValidMatch++
+                    }
+                }
+            }
+
+            if (isValidMatch == i + 1) {
+                nbMatch ++
+                nbWins  += matchDraft[j][10] === 1 ? 1 : 0
+                nbLoses += matchDraft[j][10] === 2 ? 1 : 0
+            }
+        }
+
+        res.push({pick: champsPick[i].name, nbMatch: nbMatch, winrate: (nbWins / nbMatch) * 100})
+    }
+
+
+
+    console.log(res)
+}
+
+// Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
+function doAllStats() {
+    if (typeof currRole === "undefined")
+        return;
+    
+    // Pour enlever ou remettre les persos quand ya personne de pick
+    let nbChampPick = 10
+    for (let i = 0; i < champs.length; i++)
+        if (champs[i].name === '')
+            nbChampPick--
+
+
+    document.querySelector('#best-champ-res-none').style.display = "none"
+
+
+    const alliesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'a').map(champ => champ.name)
+    const ennemiesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'e').map(champ => champ.name)
+    const champsInRole = (champ.filter(item => item.role === currRole)).map(item => item.name)
+    let statsToShow = []
+    if (nbChampPick !== 0)
+        statsToShow = computeStats(alliesChampsPick, ennemiesChampsPick, champsInRole)
+    else
+        statsToShow = computeStatsBlind(champsInRole)
+
+    //console.log(statsToShow)
+
+
+    createStatBars(statsToShow)
+    createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, champsInRole)
+    createMatchDraftPlot(alliesChampsPick, ennemiesChampsPick)
 }
 

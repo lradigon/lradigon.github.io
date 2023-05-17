@@ -29,7 +29,6 @@ function autocomplete(inp, arr) {
                 b.addEventListener("click", function(e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
-                    console.log(inp)
                     modifyOption(inp)
                 });
                 a.appendChild(b);
@@ -76,8 +75,6 @@ function autocomplete(inp, arr) {
 		  if (nextChamp) {
 			nextChamp.focus();
 			let currentType2 = inp.id.slice(0, 1);
-			console.log(currentType2)
-			console.log(currentType)
 			if (currentType2 === currentType){
 				console.log('egal')
 				currentNum++;
@@ -155,6 +152,8 @@ function autocomplete(inp, arr) {
 //Mets à jour l'image du champion quand il est selectionné
 function modifyOption(element) {
     champs[champs.findIndex(a => a.id === element.id)].name = element.value
+    const champsMaxId = champs.reduce((max, curr) => curr.pickId > max.pickId ? curr : max, champs[0]).pickId
+    champs[champs.findIndex(a => a.id === element.id)].pickId   = champsMaxId + 1
 
     const img = document.querySelector(`#${element.id}-img`)
     const questionmark = document.querySelector(`#qm-${element.id}`)

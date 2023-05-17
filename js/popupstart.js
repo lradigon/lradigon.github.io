@@ -89,7 +89,6 @@ function FirstApplication(){
 
  // Callback lorsque toutes les images sont chargées
 let onAllImagesLoaded = () => {
-  console.log("Toutes les images sont chargées");
 
   // Réglage des dimensions du canvas
   canvas.width = originalImage.width;
@@ -137,12 +136,11 @@ if (numChampions === 1) {
 
   // Fonction pour gérer le chargement des images
 let numChampions = favChamp.filter(champ => champ !== "Default").length;
-console.log(numChampions);
+
 let totalImagesToLoad = 1 + numChampions; // 1 pour l'image originale et le reste pour les champions sélectionnés
 
 let onImageLoad = () => {
   imagesLoaded++;
-  console.log("Image chargée:", imagesLoaded);
   if (imagesLoaded === totalImagesToLoad) {
     onAllImagesLoaded();
   }
@@ -234,8 +232,6 @@ function changeImageChampFav(){
 
 	 // Callback lorsque toutes les images sont chargées
 	let onAllImagesLoaded = () => {
-	  console.log("Toutes les images sont chargées");
-
 	  // Réglage des dimensions du canvas
 	  canvas.width = originalImage.width;
 	  canvas.height = originalImage.height;
@@ -282,12 +278,10 @@ function changeImageChampFav(){
 
 	  // Fonction pour gérer le chargement des images
 	let numChampions = favChamp.filter(champ => champ !== "Default").length;
-	console.log(numChampions);
 	let totalImagesToLoad = 1 + numChampions; // 1 pour l'image originale et le reste pour les champions sélectionnés
 
 	let onImageLoad = () => {
 	  imagesLoaded++;
-	  console.log("Image chargée:", imagesLoaded);
 	  if (imagesLoaded === totalImagesToLoad) {
 		onAllImagesLoaded();
 	  }

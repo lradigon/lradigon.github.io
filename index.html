@@ -138,6 +138,8 @@
     <div><h3>Toutes les statistiques</h3></div>
     <div style="width: 80%; margin: 0 auto; color: white; fill: white" id="scatterplot"></div>
     <div id="scatterplotHover"></div>
+    <div style="width: 80%; margin: 0 auto; color: white; fill: white" id="matchDraftPlot"></div>
+    <div id="matchDraftPlotHover"></div>
 </body>
 
 
@@ -151,22 +153,23 @@
 <script src="./data/contre.js"></script>
 <script src="./data/champ.js"></script>
 <script src="./data/nbgame.js"></script>
+<script src="./data/matchDraft.js"></script>
 <script src="./js/autocomplete.js"></script>
 <script src="./js/stats.js"></script>
 <script src="./js/role.js"></script>
 <script src="./js/popupstart.js"></script>
 <script>
     var champs = [
-        {id: 'a1', name: ''},
-        {id: 'a2', name: ''},
-        {id: 'a3', name: ''},
-        {id: 'a4', name: ''},
-        {id: 'a5', name: ''},
-        {id: 'e1', name: ''},
-        {id: 'e2', name: ''},
-        {id: 'e3', name: ''},
-        {id: 'e4', name: ''},
-        {id: 'e5', name: ''}
+        {id: 'a1', name: '', pickId: 0},
+        {id: 'a2', name: '', pickId: 0},
+        {id: 'a3', name: '', pickId: 0},
+        {id: 'a4', name: '', pickId: 0},
+        {id: 'a5', name: '', pickId: 0},
+        {id: 'e1', name: '', pickId: 0},
+        {id: 'e2', name: '', pickId: 0},
+        {id: 'e3', name: '', pickId: 0},
+        {id: 'e4', name: '', pickId: 0},
+        {id: 'e5', name: '', pickId: 0}
     ]
 
 
@@ -188,7 +191,7 @@
     autocomplete(document.getElementById("a2"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("a3"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("a4"), champ.map(function(obj) {return obj.name}));
-    //autocomplete(document.getElementById("a5"), champ.map(function(obj) {return obj.name}));
+    autocomplete(document.getElementById("a5"), champ.map(function(obj) {return obj.name}));
 
     autocomplete(document.getElementById("e1"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e2"), champ.map(function(obj) {return obj.name}));
