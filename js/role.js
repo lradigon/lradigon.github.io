@@ -1,6 +1,93 @@
-window.currRole = null; // variable globale pour stocker le rôle actuel
+function isFavIsCorrect(fav) {
+    return fav != "Default" && fav != undefined && fav != ""
+}
 
-function selectRole(role, element, state) {
+function getNbFavChamps() {
+    let res = 0
+    for (let i = 0; i < champsFav[currRole].length; i++)
+        if (isFavIsCorrect(champsFav[currRole][i]))
+            res++
+    return res
+}
+
+function modifySplashArtFav() {
+    let nbFavChamps = getNbFavChamps()
+
+	let canvas = document.createElement("canvas")
+	let ctx = canvas.getContext("2d")
+
+
+
+    let originalImage = new Image()
+    originalImage.crossOrigin = "anonymous";
+	originalImage.src = "https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"
+    originalImage.onload = () => {
+        let currImagesLoaded = 0
+        let onImageLoad = () => {
+            currImagesLoaded++
+            if (currImagesLoaded === nbFavChamps) {
+                onAllImagesLoaded()
+            }
+        }
+
+        let images = []
+        for (let i = 0; i < champsFav[currRole].length; i++) {
+            if (isFavIsCorrect(champsFav[currRole][i])) {
+                let image = new Image()
+                image.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champsFav[currRole][i]}_0.jpg`
+                image.alt = champsFav[currRole][i]
+                image.crossOrigin = "anonymous"
+                image.onload = onImageLoad
+                images.push(image)
+            }
+        }
+
+        let onAllImagesLoaded = () => {
+            canvas.width = originalImage.width;
+            canvas.height = originalImage.height;
+    
+            for (let i = 0; i < nbFavChamps; i++) {
+                let cropWidths = [0, images[i].width / 4, images[i].width / 3]
+                let oiWidths   = [0, originalImage.width / nbFavChamps, (originalImage.width / nbFavChamps) * 2]
+    
+                ctx.drawImage(
+                    images[i], 
+                    cropWidths[nbFavChamps - 1],
+                    0,
+                    images[i].width  / nbFavChamps,
+                    images[i].height,
+                    oiWidths[i],
+                    0,
+                    originalImage.width / nbFavChamps,
+                    originalImage.height
+                )
+            }
+    
+            let finalImageUrl = canvas.toDataURL()
+            document.querySelector(`.${currRole}`).src = finalImageUrl
+        }
+    }
+}
+
+function resetSplashArts() {
+    for (let key in baseSplashArt) {
+        const img = document.querySelector(`#${key}`)
+
+        if (!img.classList.contains('champActive') || img.classList.contains(currRole)) {
+            img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${baseSplashArt[key]}_0.jpg`
+            img.alt = baseSplashArt[key]
+        }
+    }
+
+    let autocompleteReset = document.querySelector(`#${roleIndexs[currRole]}`)
+    const inputEvent = new Event('input', {bubbles: true})
+    autocompleteReset.value = ""
+    autocompleteReset.dispatchEvent(inputEvent)
+
+    modifySplashArtFav()
+}
+
+function selectRole(role, element) {
 	// ne rien faire si le rôle sélectionné est le même que le rôle actuel
     if (role === currRole) {
         return;
@@ -18,14 +105,16 @@ function selectRole(role, element, state) {
 
     currRole = role;
 
-	for (let i = 1; i < 4; i++)
-        appendsOptionsToId(`${state}${i}`, createOptionsChamps("Default", role))
-
-    // Appeler la fonction doAllStats pour mettre à jour les statistiques et l'affichage
-    if (state !== "favFirst") {
-        doAllStats();
-        applyFormat(role)
+    for (let i = 0; i < 3; i++) {
+        if (isFavIsCorrect(champsFav[currRole][i]))
+            appendsOptionsToId(`fav${i + 1}`, createOptionsChamps(champsFav[currRole][i], currRole))
+        else
+            appendsOptionsToId(`fav${i + 1}`, createOptionsChamps("Default", currRole))
     }
+
+    doAllStats()
+    applyFormat(role)
+    resetSplashArts()
 }
 
 function appendsOptionsToId(id, options) {
@@ -97,140 +186,6 @@ function applyFormat(role) {
 }
 
 function changeImageChampFav() {
-    const favChamp = [];
-    favChamp.push(document.querySelector('#fav1').value);
-    favChamp.push(document.querySelector('#fav2').value);
-    favChamp.push(document.querySelector('#fav3').value);
-    
-    fav1.value = favChamp[0];
-    fav2.value = favChamp[1];
-    fav3.value = favChamp[2];
-    
-    const championName = fav1.value;
-    const imageUrl1 = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${championName}.png`;
-    const championName2 = favChamp[1];
-    const imageUrl2 = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${championName2}.png`;
-    const championName3 = favChamp[2];
-    const imageUrl3 = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${championName3}.png`;
-    
-    if (championName !== "Default") {
-        const championImage = document.querySelector('.imgc2');
-        championImage.src = imageUrl1;
-        championImage.alt = championName;
-    }
-
-    if (championName2 !== "Default") {
-        const championImage2 = document.querySelector('.imgc3');
-        championImage2.src = imageUrl2;
-        championImage2.alt = championName2;
-    }
-    
-    if (championName3 !== "Default") {
-        const championImage3 = document.querySelector('.imgc4');
-        championImage3.src = imageUrl3;
-        championImage3.alt = championName3;
-    }
-
-    
-    let imageUrlv1 = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championName}_0.jpg`;
-    let imageUrlv2 = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championName2}_0.jpg`;
-    let imageUrlv3 = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championName3}_0.jpg`;
-
-
-
-    /*-----------------------------------------------------	*/
-        
-    let originalImageUrl = "https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg";
-    let canvas = document.createElement("canvas");
-    let ctx = canvas.getContext("2d");
-
-    // Chargement des images
-    let originalImage = new Image();
-    let image1 = new Image();
-    let image2 = new Image();
-    let image3 = new Image();
-
-    let imagesLoaded = 0;
-
-    // Callback lorsque toutes les images sont chargées
-    let onAllImagesLoaded = () => {
-    // Réglage des dimensions du canvas
-    canvas.width = originalImage.width;
-    canvas.height = originalImage.height;
-
-    // Calculez le nombre de champions sélectionnés
-    let numChampions = 0;
-    if (championName !== "Default") numChampions++;
-    if (championName2 !== "Default") numChampions++;
-    if (championName3 !== "Default") numChampions++;
-
-    if (numChampions === 0) {
-        // Aucun champion sélectionné, on laisse le fond noir
-        return;
-    }
-
-    // Dessin des images coupées en fonction du nombre de champions sélectionnés
-    if (numChampions === 1) {
-        ctx.drawImage(image1, 0, 0, image1.width, image1.height, 0, 0, originalImage.width, originalImage.height);
-    } else if (numChampions === 2) {
-        let cropWidth1 = image1.width / 4;
-        let cropWidth2 = image2.width / 4;
-
-        ctx.drawImage(image1, cropWidth1, 0, image1.width / 2, image1.height, 0, 0, originalImage.width / 2, originalImage.height);
-        ctx.drawImage(image2, cropWidth2, 0, image2.width / 2, image2.height, originalImage.width / 2, 0, originalImage.width / 2, originalImage.height);
-    } else {
-        let cropWidth1 = image1.width / 3;
-        let cropWidth2 = image2.width / 3;
-        let cropWidth3 = image3.width / 3;
-
-        ctx.drawImage(image1, cropWidth1, 0, cropWidth1, image1.height, 0, 0, originalImage.width / 3, originalImage.height);
-        ctx.drawImage(image2, cropWidth2, 0, cropWidth2, image2.height, originalImage.width / 3, 0, originalImage.width / 3, originalImage.height);
-        ctx.drawImage(image3, cropWidth3, 0, cropWidth3, image3.height, (originalImage.width / 3) * 2, 0, originalImage.width / 3, originalImage.height);
-    }
-
-    // récupère quel rôle change pour savoir ou modifier l'image
-    const roleOrder = ['Top', 'Jungle', 'Mid', 'ADC', 'Support'];
-    const imageIds = ['a1-img', 'a2-img', 'a3-img', 'a4-img', 'a5-img'];
-    const index = roleOrder.indexOf(window.currRole);
-    // Remplacement de l'image originale par le résultat du canvas
-    let finalImageUrl = canvas.toDataURL();
-    let originalImageElement = document.getElementById(imageIds[index]);
-    originalImageElement.src = finalImageUrl;
-    };
-
-    // Fonction pour gérer le chargement des images
-    let numChampions = favChamp.filter(champ => champ !== "Default").length;
-    let totalImagesToLoad = 1 + numChampions; // 1 pour l'image originale et le reste pour les champions sélectionnés
-
-    let onImageLoad = () => {
-    imagesLoaded++;
-    if (imagesLoaded === totalImagesToLoad) {
-        onAllImagesLoaded();
-    }
-    };
-
-    // Configuration et chargement des images
-    originalImage.crossOrigin = "anonymous";
-    originalImage.src = originalImageUrl;
-    originalImage.onload = onImageLoad;
-
-    if (championName !== "Default") {
-    image1.crossOrigin = "anonymous";
-    image1.src = imageUrlv1;
-    image1.onload = onImageLoad;
-    }
-
-    if (championName2 !== "Default") {
-    image2.crossOrigin = "anonymous";
-    image2.src = imageUrlv2;
-    image2.onload = onImageLoad;
-    }
-
-    if (championName3 !== "Default") {
-    image3.crossOrigin = "anonymous";
-    image3.src = imageUrlv3;
-    image3.onload = onImageLoad;
-    }
-
+    modifySplashArtFav()
     doAllStats();
 }

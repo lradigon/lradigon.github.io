@@ -1,16 +1,15 @@
-
-
 function autocomplete(inp, arr) {
     var currentFocus;
 	var val = '';
-
-	
-	
 	
     inp.addEventListener("input", function(e) {
-
         var a, b, i = this.value;
 		val = this.value;
+
+        if (val === "") {
+            closeAllLists()
+            modifyOption(inp)
+        }
 		
         closeAllLists();
         if (!val) { return false;}
@@ -76,7 +75,6 @@ function autocomplete(inp, arr) {
 			nextChamp.focus();
 			let currentType2 = inp.id.slice(0, 1);
 			if (currentType2 === currentType){
-				console.log('egal')
 				currentNum++;
 				nextChamp = document.getElementById(currentType + currentNum.toString());
 				nextChamp.focus();
@@ -85,7 +83,7 @@ function autocomplete(inp, arr) {
 		}
     });
 
-//appuie sur retour
+    //appuie sur retour
     inp.addEventListener("keydown", function(e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
@@ -100,15 +98,14 @@ function autocomplete(inp, arr) {
             if (currentFocus > -1)
                 if (x) x[currentFocus].click();
         }
-	// 8 is the keyCode for the backspace key
-    if (e.keyCode == 8) {
-		backspacePressed = true;
-		inp.value = val;
-		val = val.slice(0, -1); 
-		console.log(val);
-	    } else {
-        backspacePressed = false;
-    }
+        // 8 is the keyCode for the backspace key
+        if (e.keyCode == 8) {
+            backspacePressed = true;
+            inp.value = val;
+            val = val.slice(0, -1);
+        } else {
+            backspacePressed = false;
+        }
     });
 
     function addActive(x) {
@@ -144,7 +141,7 @@ function autocomplete(inp, arr) {
         }
     }
 
-    document.addEventListener("click", function (e) {
+    document.addEventListener("click", function(e) {
         closeAllLists(e.target)
     });
 }
@@ -159,7 +156,7 @@ function modifyOption(element) {
     const questionmark = document.querySelector(`#qm-${element.id}`)
 
     if (element.value === "") {
-        img.src = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg'
+        img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${baseSplashArt[`${element.id}-img`]}_0.jpg`
         img.classList.add('champback2')
         img.classList.remove('champActive')
         questionmark.style.display = "block"

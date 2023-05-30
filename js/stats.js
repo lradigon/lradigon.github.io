@@ -1,17 +1,17 @@
-function resetStats() {
-    document.querySelector('#best-champ-res-none').style.display = "block"
-    document.querySelector('.best-champ-res').innerHTML = ""
-    document.querySelector('.res').innerHTML = champPlaceholders
-
-    const favs = [fav1, fav2, fav3]
-    for (let i = 0; i < favs.length; i++) {
-        if (favs[i].value !== "Default") {
-            const championImage2 = document.querySelector(`.imgc${i + 2}`);
-            championImage2.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${favs[i].value}.png`;
-            championImage2.alt = favs[i].value;
-        }
-    }
-}
+//function resetStats() {
+//    document.querySelector('#best-champ-res-none').style.display = "block"
+//    document.querySelector('.best-champ-res').innerHTML = ""
+//    document.querySelector('.res').innerHTML = champPlaceholders
+//
+//    const favs = [fav1, fav2, fav3]
+//    for (let i = 0; i < favs.length; i++) {
+//        if (favs[i].value !== "Default") {
+//            const championImage2 = document.querySelector(`.imgc${i + 2}`);
+//            championImage2.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${favs[i].value}.png`;
+//            championImage2.alt = favs[i].value;
+//        }
+//    }
+//}
 
 function computeStats(alliesChampsPick, ennemiesChampsPick, champsInRole) {
     // List des stats avec et contre
@@ -77,7 +77,6 @@ function computeStatsBlind(champsInRole) {
     // List des personnages disponibles pour le role
     const statsToShow = []
     const q1q2 = findQ1Q2AllStats(champsInRole)
-    console.log(q1q2)
     
     for (let i = 0; i < contre.length; i++) {
         if (!champsInRole.includes(contre[i].Contre))
@@ -109,10 +108,7 @@ function computeStatsBlind(champsInRole) {
 // Créer les bars de stat avec les meilleurs persos / persos favoris
 function createStatBars(statsToShow) {
     // Get les champions favoris
-    let favChamp = [];
-    favChamp.push(document.querySelector('#fav1').value);
-    favChamp.push(document.querySelector('#fav2').value);
-    favChamp.push(document.querySelector('#fav3').value);
+    let favChamp = champsFav[currRole];
 
 
     // Reset le html du résultat
@@ -376,9 +372,7 @@ function doAllStats() {
     for (let i = 0; i < champs.length; i++)
         if (champs[i].name === '')
             nbChampPick--
-
-
-    document.querySelector('#best-champ-res-none').style.display = "none"
+    
 
 
     const alliesChampsPick = champs.filter(champ => champ.name !== '' && champ.id.charAt(0) === 'a').map(champ => champ.name)
