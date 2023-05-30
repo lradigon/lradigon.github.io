@@ -14,7 +14,7 @@
         <img src=".\img\logo-v1.png" alt="logo" class="logo-image">
     </header>
  
-    <main>
+    <main style="margin-bottom: 110px;">
         <div style="display: flex;">
             <div style="width: 50%;">
                 <table>
@@ -23,7 +23,7 @@
                         <th><div class="image-container"><img id="a2-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Kayn_0.jpg"    /><span class="prepick" id="qm-a2">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a2" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
                         <th><div class="image-container"><img id="a3-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Vladimir_0.jpg"/><span class="prepick" id="qm-a3">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a3" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
                         <th><div class="image-container"><img id="a4-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Varus_0.jpg"   /><span class="prepick" id="qm-a4">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a4" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
-                        <th><div class="image-container"><img id="a5-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"   /><span class="prepick" id="qm-a5">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a5" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
+                        <th><div class="image-container"><img id="a5-img" class="champback2" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Pyke_0.jpg"    /><span class="prepick" id="qm-a5">?</span></div><div style="height: 27px;"><form autocomplete="off"><div class="autocomplete"><input id="a5" class="allie champInputs" type="text" placeholder="Champions"></div></form></div></th>
                     </tr>
                     <tr>
                         <td colspan="5" style="text-align: center; font-size: 32px; font-weight: bold; color: white; padding-top: 3vh; padding-bottom: 3vh;">VS</td>
@@ -47,11 +47,11 @@
                 <div id="role-container" style="background-color: rgba(0, 0, 0, 0.7); display: inline-block; padding: 20px; border-radius: 10px;">
                     <p style="color: white; text-align: center; margin-bottom: 20px;"><h3>Veuillez choisir votre rôle</h3></p>
                     <div id="role-images-start">
-                        <a href="#" onclick="selectRole2('Top', this)"    ><img class="role-image transparent" alt="role-top"     src="./img/Position_Challenger-Top.png"     alt="Top"   /></a>
-                        <a href="#" onclick="selectRole2('Jungle', this)" ><img class="role-image transparent" alt="role-jgl"     src="./img/Position_Challenger-Jungle.png"  alt="Jungle"/></a>
-                        <a href="#" onclick="selectRole2('Mid', this)"    ><img class="role-image transparent" alt="role-mid"     src="./img/Position_Challenger-Mid.png"     alt="Mid"   /></a>
-                        <a href="#" onclick="selectRole2('ADC', this)"    ><img class="role-image transparent" alt="role-adc"     src="./img/Position_Challenger-Bot.png"     alt="Adc"   /></a>
-                        <a href="#" onclick="selectRole2('Support', this)"><img class="role-image transparent" alt="role-support" src="./img/Position_Challenger-Support.png" alt="Supp"  /></a>
+                        <a href="#" onclick="selectRole('Top', this, 'favFirst')"    ><img class="role-image transparent" alt="role-top"     src="./img/Position_Challenger-Top.png"     alt="Top"   /></a>
+                        <a href="#" onclick="selectRole('Jungle', this, 'favFirst')" ><img class="role-image transparent" alt="role-jgl"     src="./img/Position_Challenger-Jungle.png"  alt="Jungle"/></a>
+                        <a href="#" onclick="selectRole('Mid', this, 'favFirst')"    ><img class="role-image transparent" alt="role-mid"     src="./img/Position_Challenger-Mid.png"     alt="Mid"   /></a>
+                        <a href="#" onclick="selectRole('ADC', this, 'favFirst')"    ><img class="role-image transparent" alt="role-adc"     src="./img/Position_Challenger-Bot.png"     alt="Adc"   /></a>
+                        <a href="#" onclick="selectRole('Support', this, 'favFirst')"><img class="role-image transparent" alt="role-support" src="./img/Position_Challenger-Support.png" alt="Supp"  /></a>
                     </div>
 
                     <h3>Champions favoris:</h3>
@@ -70,11 +70,11 @@
             <div style="width: 50%;">
                 <h2>Rôle :</h2>
                 <div id="role-images">
-                    <a href="#" onclick="selectRole('Top', this)"     id="Top"    ><img class="role-image transparent" alt="role-top"     src="./img/Position_Challenger-Top.png"     alt="Top"   /></a>
-                    <a href="#" onclick="selectRole('Jungle', this)"  id="Jungle" ><img class="role-image transparent" alt="role-jungle"  src="./img/Position_Challenger-Jungle.png"  alt="Jungle"/></a>
-                    <a href="#" onclick="selectRole('Mid', this)"     id="Mid"    ><img class="role-image transparent" alt="role-mid"     src="./img/Position_Challenger-Mid.png"     alt="Mid"   /></a>
-                    <a href="#" onclick="selectRole('ADC', this)"     id="ADC"    ><img class="role-image transparent" alt="role-adc"     src="./img/Position_Challenger-Bot.png"     alt="Adc"   /></a>
-                    <a href="#" onclick="selectRole('Support', this)" id="Support"><img class="role-image transparent" alt="role-support" src="./img/Position_Challenger-Support.png" alt="Supp"  /></a>
+                    <a href="#" onclick="selectRole('Top', this, 'fav')"     id="Top"    ><img class="role-image transparent" alt="role-top"     src="./img/Position_Challenger-Top.png"     alt="Top"   /></a>
+                    <a href="#" onclick="selectRole('Jungle', this, 'fav')"  id="Jungle" ><img class="role-image transparent" alt="role-jungle"  src="./img/Position_Challenger-Jungle.png"  alt="Jungle"/></a>
+                    <a href="#" onclick="selectRole('Mid', this, 'fav')"     id="Mid"    ><img class="role-image transparent" alt="role-mid"     src="./img/Position_Challenger-Mid.png"     alt="Mid"   /></a>
+                    <a href="#" onclick="selectRole('ADC', this, 'fav')"     id="ADC"    ><img class="role-image transparent" alt="role-adc"     src="./img/Position_Challenger-Bot.png"     alt="Adc"   /></a>
+                    <a href="#" onclick="selectRole('Support', this, 'fav')" id="Support"><img class="role-image transparent" alt="role-support" src="./img/Position_Challenger-Support.png" alt="Supp"  /></a>
                 </div>
 
                 <h3>Champions favoris:</h3>
@@ -120,7 +120,7 @@
 
 				<h3>The best champion(s) on this draft will be:</h3>
 				<div class="best-champ-res"></div>
-                <div id="best-champ-res-none">
+                <div id="best-champ-res-none" >
                     <div class="progress-bar-container">
                         <div class="image-container2">
                             <img src="https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/Aphelios.png" alt="Champion" style="width: 80%; opacity: 0.5;">
@@ -132,6 +132,8 @@
                         </div>
                     </div>
                 </div>
+				<div  style="margin-bottom: 40px;"> </div>
+				<button id="scrollToBottomBtn" class="large-button">All Statistics</button>
             </div>
         </div>
     </main>
@@ -182,9 +184,32 @@
     }
 
 
+
+
+
+
     appendsOptionsToId('fav1', createOptionsChamps("", "Top"));
     appendsOptionsToId('fav2', createOptionsChamps("", "Top"));
     appendsOptionsToId('fav3', createOptionsChamps("", "Top"));
+
+    fav1.addEventListener('change', changeImageChampFav);
+    fav2.addEventListener('change', changeImageChampFav);
+    fav3.addEventListener('change', changeImageChampFav);
+
+    champsFav = {
+        'Top':     [],
+        'Jungle':  [],
+        'Mid':     [],
+        'ADC':     [],
+        'Support': []
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        initializeSelect("favFirst1", "Chose");
+        initializeSelect("favFirst2", "Your");
+        initializeSelect("favFirst3", "Role");
+	});
+
 
 
     autocomplete(document.getElementById("a1"), champ.map(function(obj) {return obj.name}));
@@ -192,26 +217,18 @@
     autocomplete(document.getElementById("a3"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("a4"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("a5"), champ.map(function(obj) {return obj.name}));
-
     autocomplete(document.getElementById("e1"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e2"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e3"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e4"), champ.map(function(obj) {return obj.name}));
     autocomplete(document.getElementById("e5"), champ.map(function(obj) {return obj.name}));
 
-    fav1.addEventListener('change', changeImageChampFav);
-    fav2.addEventListener('change', changeImageChampFav);
-    fav3.addEventListener('change', changeImageChampFav);
-
-    let champselects = document.getElementsByClassName("champselect")
-    for (let i = 0; i < champselects.length; i++) {
-        champselects[i].addEventListener('change', () => {modifyOption(champselects[i], i)})
-    }
 
     var champPlaceholders = document.querySelector('.res').innerHTML
 
-    const champBack = document.getElementsByClassName('champback2')[0]
+
     // Resize les autocompletes à chaque changement de taille de la page
+    const champBack = document.getElementsByClassName('champback2')[0]
     const resizeObserver = new ResizeObserver(entries => {
         for (const entry of entries) {
             if (entry.target === champBack && entry.contentRect.width !== 0) {
@@ -222,4 +239,11 @@
         }
     });
     resizeObserver.observe(champBack)
+
+	document.getElementById("scrollToBottomBtn").addEventListener("click", function() {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+    });
 </script>

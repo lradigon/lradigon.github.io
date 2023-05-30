@@ -315,7 +315,7 @@ function createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, ch
     }
 }
 
-function createMatchDraftPlot(alliesChampsPick, ennemiesChampsPick) {
+function createMatchDraftPlot() {
     let res = []
     const champsPick = []
     for (let i = 0; i < champs.length; i++)
@@ -364,10 +364,6 @@ function createMatchDraftPlot(alliesChampsPick, ennemiesChampsPick) {
 
         res.push({pick: champsPick[i].name, nbMatch: nbMatch, winrate: (nbWins / nbMatch) * 100})
     }
-
-
-
-    console.log(res)
 }
 
 // Fonction du calcul des stats pour les alliés et les ennemis sélectionnés 
@@ -399,6 +395,6 @@ function doAllStats() {
 
     createStatBars(statsToShow)
     createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, champsInRole)
-    createMatchDraftPlot(alliesChampsPick, ennemiesChampsPick)
+    //createMatchDraftPlot(alliesChampsPick, ennemiesChampsPick)
 }
 

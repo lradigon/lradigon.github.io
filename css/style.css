@@ -409,3 +409,21 @@ to {
  opacity: 1;
 }
 }
+    .large-button {
+        font-size: 20px;
+        padding: 10px 20px;
+        background-color: silver;
+        background-image: linear-gradient(to left, silver, white);
+        background-size: 200% auto;
+        animation: shimmer 2s linear infinite;
+        cursor: pointer;
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: 0% center;
+        }
+        100% {
+            background-position: 200% center;
+        }
+    }
