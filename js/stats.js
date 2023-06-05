@@ -129,6 +129,7 @@ function createStatBars(statsToShow) {
 
             div.className = "progress-bar-container"
             img.style.width = "10%"
+			img.style.marginRight = "70px";
 
             div.append(img)
             div.append(createProgressbar(`${statsToShow[i].average.toFixed(2)}%`))
@@ -146,6 +147,7 @@ function createStatBars(statsToShow) {
 
             div.className = "progress-bar-container"
             img.style.width = "10%";
+			img.style.marginRight = "70px";
 
             div.append(img);
             div.append(createProgressbar(`${statsToShow[y].average.toFixed(2)}%`));
@@ -158,12 +160,13 @@ function createStatBars(statsToShow) {
     function createProgressbar(width) {
         let progressBar = document.createElement('div')
         progressBar.className = "progress-bar"
-
+		progressBar.style.right = "70px";
+		
         // Créer la partie dorée remplie de la barre de progression
         let filledBar = document.createElement('div')
         filledBar.style.width = width;
         filledBar.className = "progress-bar-fill"
-
+		
         // Ajouter le pourcentage à la barre de progression
         let percentageText = document.createElement('span')
         percentageText.innerHTML = width
@@ -213,9 +216,10 @@ function createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, ch
     /// Création du graphique
     ///
 
-    // set the dimensions and margins of the graph
-    const margin = {top: 10, right: 30, bottom: 30, left: 60}
-    const height = 500 - margin.top - margin.bottom
+	// set the dimensions and margins of the graph
+	const margin = {top: 50, right: 50, bottom: 50, left: 100};
+	const width = window.innerWidth - margin.left - margin.right; // Use the window's inner width
+	const height = window.innerHeight - margin.top - margin.bottom; // Use the window's inner height
 
     const lowestWinrate   = data.reduce((min, obj) => obj.winrate < min.winrate ? obj : min, data[0]).winrate
     const highestWinrate  = data.reduce((min, obj) => obj.winrate > min.winrate ? obj : min, data[0]).winrate
@@ -223,29 +227,28 @@ function createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, ch
     const lowestPickrate  = data.reduce((min, obj) => obj.pickrate < min ? obj.pickrate : min, data[0].pickrate)
     const HighestPickrate = data.reduce((min, obj) => obj.pickrate > min ? obj.pickrate : min, data[0].pickrate)
 
-    // append the svg object to the body of the page
-    const svg = d3.select("#scatterplot")
-                  .append("svg")
-                  .attr("width", "100%")
-                  .attr("height", height + margin.top + margin.bottom)
-                  .append("g")
-                  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+	const svg = d3.select("#scatterplot")
+				  .append("svg")
+				  .attr("width", "100%")
+				  .attr("height", height + margin.top + margin.bottom)
+				  .append("g")
+				  .attr("transform", `translate(${margin.left + 50}, ${margin.top})`);  // Move all elements right
 
     
     // Add X axis label
     svg.append("text")
        .attr("text-anchor", "middle")
        .attr("x", scatterplot.getBoundingClientRect().width / 2)
-       .attr("y", height + margin.top + 25)
+       .attr("y", height + margin.top + 0)
        .text("Winrate");
 
-    // Add Y axis label
-    svg.append("text")
-       .attr("text-anchor", "middle")
-       .attr("transform", "rotate(-90)")
-       .attr("x", -height / 2)
-       .attr("y", -margin.left + 20)
-       .text("Nombre de games");
+	// Add Y axis label
+	svg.append("text")
+	   .attr("text-anchor", "middle")
+	   .attr("y", -margin.left + 20)  // Adjust this value as needed
+	   .attr("x", -height / 2)
+	   .attr("transform", "rotate(-90)")
+	   .text("Nombre de games");
 
 
     // Add X axis
@@ -289,7 +292,16 @@ function createScatterPlot(statsToShow, alliesChampsPick, ennemiesChampsPick, ch
             let p = document.createElement('p')
             p.id = `tooltip-text`
             p.className = `tooltip-text-${i}`
-            p.innerHTML = `Champion: ${data[i].realName}<br>Games: ${data[i].pickrate}<br>Winrate: ${data[i].winrate.toFixed(3)}%`
+				p.innerHTML = `
+				<span style="color:white;">In this game:</span>
+				<div style="background-color:white; padding:10px; color:black; border-radius: 10px;">
+				  ${data[i].realName}<br>
+				  Winrate: <span style="color:darkred; font-weight:bold;">${Number(data[i].winrate).toFixed(2)}%</span><br>
+				  <span style="color:#808080;">Based on :</span> <span>${parseInt(data[i].pickrate)}</span> <span style="color:#808080;">games</span>
+				</div>
+				`;
+
+
 
             const rect = imagesScatterplot[i].getBoundingClientRect()
 
