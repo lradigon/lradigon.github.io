@@ -1,3 +1,18 @@
+function changeFocus(currId) {
+    const order = ["a1", "e1", "a2", "e2", "a3", "e3", "a4", "e4", "a5", "e5"]
+
+    for (let i = 0; i < order.length - 1; i++) {
+        if (order[i] == currId) {
+            let nextInput = document.querySelector(`#${order[i + 1]}`)
+            if (nextInput.parentElement.parentElement.style.display == 'none')
+                nextInput = document.querySelector(`#${order[i + 2]}`);
+            nextInput.focus()
+            return;
+        }
+    }
+
+}
+
 function autocomplete(inp, arr) {
     var currentFocus;
 	var val = '';
@@ -12,7 +27,7 @@ function autocomplete(inp, arr) {
         }
 		
         closeAllLists();
-        if (!val) { return false;}
+        if (!val) {return false;}
         currentFocus = -1;
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
@@ -44,6 +59,7 @@ function autocomplete(inp, arr) {
                     inp.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
                     modifyOption(inp)
+                    changeFocus(inp.id)
                 });
                 a.appendChild(div);
             }
