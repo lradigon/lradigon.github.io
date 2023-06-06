@@ -62,6 +62,9 @@ function autocomplete(inp, arr) {
                     changeFocus(inp.id)
                 });
                 a.appendChild(div);
+
+                x = a.getElementsByTagName("div")
+                addActive(x)
             }
         }
     });
