@@ -7,7 +7,7 @@
 //    for (let i = 0; i < favs.length; i++) {
 //        if (favs[i].value !== "Default") {
 //            const championImage2 = document.querySelector(`.imgc${i + 2}`);
-//            championImage2.src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${favs[i].value}.png`;
+//            championImage2.src = `./icones/${favs[i].value}.webp`;
 //            championImage2.alt = favs[i].value;
 //        }
 //    }

@@ -57,7 +57,7 @@ function FirstApplication() {
 
 	for (let i = 0; i < champsFav[currRole].length; i++) {
 		if (isFavIsCorrect(champsFav[currRole][i])) {
-			document.querySelector(`.imgc${i + 2}`).src = `https://ddragon.leagueoflegends.com/cdn/13.7.1/img/champion/${champsFav[currRole][i]}.png`;
+			document.querySelector(`.imgc${i + 2}`).src = `./icones/${champsFav[currRole][i]}.webp`;
 			document.querySelector(`.imgc${i + 2}`).alt = champsFav[currRole][i] 
 		}
 	}

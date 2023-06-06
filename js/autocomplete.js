@@ -16,71 +16,38 @@ function autocomplete(inp, arr) {
         currentFocus = -1;
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
+        a.style.display = "grid"
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
-		let suggestionsCount = 0; // Ajouter un compteur de suggestions
         for (i = 0; i < arr.length; i++) {
             if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() && !isChampSelected(arr[i])) {
-                b = document.createElement("DIV");
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                b.addEventListener("click", function(e) {
+                div = document.createElement("div");
+                div.style.display = "flex"
+                div.style.alignItems = "center"
+
+                img = document.createElement("img")
+                img.src = `./icones/${arr[i]}.webp`
+                img.alt = arr[i]
+                img.width = 40
+                div.appendChild(img)
+
+                span = document.createElement("span")
+                span.style.textAlign = "left"
+                span.style.paddingLeft = "1vw"
+                span.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                span.innerHTML += arr[i].substr(val.length);
+                span.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+
+                div.appendChild(span)
+
+                div.addEventListener("click", function(e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
                     modifyOption(inp)
                 });
-                a.appendChild(b);
-				suggestionsCount++; // Incrémenter le compteur de suggestions
-				singleSuggestion = b;
+                a.appendChild(div);
             }
         }
-		// Si une seule suggestion est disponible et qu'elle est déjà visible, 
-		// déclenchez l'événement de clic pour la sélectionner automatiquement
-		if (suggestionsCount === 1) {
-		  singleSuggestion.click();
-
-		  // Obtenir le numéro du champ actuel
-		  let currentNum = parseInt(inp.id.slice(1));
-		  
-		  // Obtenir le type du champ actuel ('a' ou 'e')
-		  let currentType = inp.id.slice(0, 1);
-
-		  let nextChamp;
-
-		  do {
-			// Si le type actuel est 'a', passez à 'e'
-			if (currentType === 'a') {
-			  currentType = 'e';
-			}
-			// Sinon, passez au numéro de champ suivant et revenez à 'a'
-			else {
-			  currentType = 'a';
-			  currentNum++;
-			}
-
-			// Si nous avons dépassé '5', il n'y a pas de champ suivant
-			if (currentNum > 5) {
-			  return;
-			}
-
-			// Obtenir le champ suivant
-			nextChamp = document.getElementById(currentType + currentNum.toString());
-
-		  // Continuez à chercher si le champ suivant n'existe pas ou est déjà rempli
-		  } while (!nextChamp || (nextChamp && nextChamp.value));
-
-		  // Déplacer le focus vers le champ suivant
-		  if (nextChamp) {
-			nextChamp.focus();
-			let currentType2 = inp.id.slice(0, 1);
-			if (currentType2 === currentType){
-				currentNum++;
-				nextChamp = document.getElementById(currentType + currentNum.toString());
-				nextChamp.focus();
-		  }
-		  }
-		}
     });
 
     //appuie sur retour
