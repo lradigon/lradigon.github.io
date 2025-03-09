@@ -3,16 +3,16 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Phillipe Lugnac</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Parisienne&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preload" href="./assets/Parisienne-Regular.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
     <div class="top-bar">
-        <img src="./assets/tarte.svg">
+        <img loading="lazy"  src="./assets/tarte.svg">
         <span class="brand-name">Phillipe Lugnac</span>
-        <img src="./assets/tarte.svg">
+        <img loading="lazy"  src="./assets/tarte.svg">
     </div>
     <header>
         <nav>
@@ -23,120 +23,136 @@
         </nav>
     </header>
 
-    <div class="carousel">
-        <div class="carousel-images">
-            <img src="./assets/slide-1.jpg" alt="Image 1">
-        </div>
-        <div class="carousel-text">
-            “Nous travaillons à l’émotion <br>
-            pour proposer des pâtisseries inscrites <br>
-            dans la gourmandise et la modernité.“
-        </div>
-        <div class="carousel-arrow carousel-arrow-left">&lt;</div>
-        <div class="carousel-arrow carousel-arrow-right">&gt;</div>
-    </div>
-
-    <div class="chef-section">
-        <div class="chef-text">
-            <span>Le Chef</span>
-            <p>Philippe Lugnac s’amuse autant à inventer qu’à réinventer, faire briller le répertoire classique parisien, visiter de nouvelles terres avec attention et donner de l’éclat aux soirées festives qui se prolongent.</p>
-            <img src="./assets/le-chef-1.jpg" alt="Philippe Lugnac">
-        </div>
-        <div class="chef-image">
-            <img src="./assets/le-chef-2.jpg" alt="Dessert par Philippe Lugnac">
-        </div>
-    </div>
-
-    <div class="chef-section low-opa-back">
-        <div class="chef-image">
-            <img src="./assets/nos-patisseries.jpg" alt="Dessert par Philippe Lugnac">
-        </div>
-        <div class="chef-text">
-            <span>Nos pâtisseries</span>
-            <p>Créations originales, grands classiques revisités, gâteaux de voyage ou pour vos événements, découvrez le catalogue de nos produits disponibles en boutique...</p>
-        </div>
-    </div>
-
-    <div class="chef-section vertical">
-        <div class="chef-text">
-            <span>On parle de nous</span>
-        </div>
-        <div class="chef-text">
-            <p>Nos dernières parutions dans la presse et sur internet.</p>
-        </div>
-        <div class="logo-container">
-            <img class="logo" src="./assets/logo-elle.svg" alt="Logo 1">
-            <img class="logo" src="./assets/logo-lemonde.svg" alt="Logo 2">
-            <img class="logo" src="./assets/logo-vogue.svg" alt="Logo 3">
-            <img class="logo" src="./assets/logo-cntraveler.svg" alt="Logo 4">
-            <img class="logo" src="./assets/fou-patesserie.svg" alt="Logo 5">
-        </div>
-    </div>
-
-    <div class="chef-section low-opa-back vertical">
-        <div class="chef-text">
-            <span>Où nous trouver ?</span>
-        </div>
-        <div class="chef-section">
-            <div class="chef-image">
-                <img src="./assets/map-interactive.png" alt="Dessert par Philippe Lugnac">
+    <section>
+        <div class="carousel">
+            <div class="carousel-images">
+                <img loading="lazy"  src="./assets/slide-1.webp" alt="Image 1">
             </div>
-            <div class="chef-text-h3" style="display: flex; flex-direction: column;">
-                <span>Lugnac</span>
-                <p>4 rue Censier, Paris 7</p>
-                <span>Aux Prés</span>
-                <p>Boulevard de l’Hôpital, Paris 15</p>
-                <span>Le Chardenoux</span>
-                <p>15 rue du Jura, Paris 11</p>
+            <div class="carousel-text">
+                “Nous travaillons à l’émotion <br>
+                pour proposer des pâtisseries inscrites <br>
+                dans la gourmandise et la modernité.“
             </div>
+            <div class="carousel-arrow carousel-arrow-left">&lt;</div>
+            <div class="carousel-arrow carousel-arrow-right">&gt;</div>
         </div>
-    </div>
+    </section>
 
-    <div class="chef-section vertical">
-        <div class="chef-text">
-            <span>Nous contacter</span>
-        </div>
-
+    <section>
         <div class="chef-section">
             <div class="chef-text">
-                <p>Pour toute réservation, nous vous invitions à contacter directement le restaurant par téléphone.</p>
-                <p>* champs obligatoires.</p>
-                <p>Nom / Prénom*</p>
-                <input type="text" class="custom-input">
-                <p>Adresse e-mail*</p>
-                <input type="text" class="custom-input">
-                <p>Message*</p>
-                <input type="text" class="custom-input" style="height: 180px;">
-                <div style="display: flex; justify-content: flex-end; padding-top: 1vh;">
-                    <button class="custom-button">Envoyer</button>
+                <span>Le Chef</span>
+                <p>Philippe Lugnac s’amuse autant à inventer qu’à réinventer, faire briller le répertoire classique parisien, visiter de nouvelles terres avec attention et donner de l’éclat aux soirées festives qui se prolongent.</p>
+                <img loading="lazy"  src="./assets/le-chef-1.webp" alt="Philippe Lugnac">
+            </div>
+            <div class="chef-image">
+                <img loading="lazy"  src="./assets/le-chef-2.webp" alt="Dessert par Philippe Lugnac">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="chef-section low-opa-back">
+            <div class="chef-image">
+                <img loading="lazy"  src="./assets/nos-patisseries.webp" alt="Dessert par Philippe Lugnac">
+            </div>
+            <div class="chef-text">
+                <span>Nos pâtisseries</span>
+                <p>Créations originales, grands classiques revisités, gâteaux de voyage ou pour vos événements, découvrez le catalogue de nos produits disponibles en boutique...</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="chef-section vertical">
+            <div class="chef-text">
+                <span>On parle de nous</span>
+            </div>
+            <div class="chef-text">
+                <p>Nos dernières parutions dans la presse et sur internet.</p>
+            </div>
+            <div class="logo-container">
+                <img loading="lazy"  class="logo" src="./assets/logo-elle.svg" alt="Logo 1">
+                <img loading="lazy"  class="logo" src="./assets/logo-lemonde.svg" alt="Logo 2">
+                <img loading="lazy"  class="logo" src="./assets/logo-vogue.svg" alt="Logo 3">
+                <img loading="lazy"  class="logo" src="./assets/logo-cntraveler.svg" alt="Logo 4">
+                <img loading="lazy"  class="logo" src="./assets/fou-patesserie.svg" alt="Logo 5">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="chef-section low-opa-back vertical">
+            <div class="chef-text">
+                <span>Où nous trouver ?</span>
+            </div>
+            <div class="chef-section">
+                <div class="chef-image">
+                    <img loading="lazy"  src="./assets/map-interactive.webp" alt="Dessert par Philippe Lugnac">
+                </div>
+                <div class="chef-text-h3" style="display: flex; flex-direction: column;">
+                    <span>Lugnac</span>
+                    <p>4 rue Censier, Paris 7</p>
+                    <span>Aux Prés</span>
+                    <p>Boulevard de l’Hôpital, Paris 15</p>
+                    <span>Le Chardenoux</span>
+                    <p>15 rue du Jura, Paris 11</p>
                 </div>
             </div>
-            <div class="chef-text-h3">
-                <span>Nos coordonnées</span>
-                <p>Siège Lugnac</p>
-                <p>4 rue Censier, Paris 7</p>
-                <p>+33 (0)1 42 56 11 26</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="chef-section vertical">
+            <div class="chef-text">
+                <span>Nous contacter</span>
+            </div>
+
+            <div class="chef-section">
+                <div class="chef-text">
+                    <p>Pour toute réservation, nous vous invitions à contacter directement le restaurant par téléphone.</p>
+                    <p>* champs obligatoires.</p>
+                    <p>Nom / Prénom*</p>
+                    <input type="text" class="custom-input">
+                    <p>Adresse e-mail*</p>
+                    <input type="text" class="custom-input">
+                    <p>Message*</p>
+                    <input type="text" class="custom-input" style="height: 180px;">
+                    <div style="display: flex; justify-content: flex-end; padding-top: 1vh;">
+                        <button class="custom-button">Envoyer</button>
+                    </div>
+                </div>
+                <div class="chef-text-h3">
+                    <span>Nos coordonnées</span>
+                    <p>Siège Lugnac</p>
+                    <p>4 rue Censier, Paris 7</p>
+                    <p>+33 (0)1 42 56 11 26</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="chef-section low-opa-back vertical" style="align-items: center;">
-        <div class="chef-text">
-            <span>Retrouvez-nous</span>
+    <section>
+        <div class="chef-section low-opa-back vertical" style="align-items: center;">
+            <div class="chef-text">
+                <span>Retrouvez-nous</span>
+            </div>
+            <div class="logo-container">
+                <img loading="lazy"  class="logo" src="./assets/instagram.svg" alt="Logo 1">
+                <img loading="lazy"  class="logo" src="./assets/linkedin.svg" alt="Logo 2">
+                <img loading="lazy"  class="logo" src="./assets/facebook.svg" alt="Logo 3">
+            </div>
         </div>
-        <div class="logo-container">
-            <img class="logo" src="./assets/instagram.svg" alt="Logo 1">
-            <img class="logo" src="./assets/linkedin.svg" alt="Logo 2">
-            <img class="logo" src="./assets/facebook.svg" alt="Logo 3">
-        </div>
-    </div>
+    </section>
 
-    <div class="chef-section" style="align-items: center;">
-        <div class="chef-text" style="flex-direction: row;">
-            <p style="flex-grow: 0">Mentions légales</p>
-            <p style="flex-grow: 0">Fièrement propulsé par WordPress</p>
+    <section>
+        <div class="chef-section" style="align-items: center;">
+            <div class="chef-text" style="flex-direction: row;">
+                <p style="flex-grow: 0">Mentions légales</p>
+                <p style="flex-grow: 0">Fièrement propulsé par WordPress</p>
+            </div>
         </div>
-    </div>
+    </section>
 </body>
 </html>
 
