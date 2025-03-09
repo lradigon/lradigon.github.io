@@ -1,1 +1,0 @@
-# lradigon.github.io
